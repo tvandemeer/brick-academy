@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
-  <title>Mijn 11ty site op Github</title>
+  <title>Hallo Wereld!</title>
   <!-- UIkit CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/css/uikit.min.css" />
 
@@ -17,6 +18,18 @@
   <link rel="stylesheet" href="styles/tvandemeer.css" />
 </head>
 <body>
-  <h1>Hallo Wereld</h1>  
+  
+<div uk-grid>
+  <div class="uk-padding uk-width-1-1 uk-text-center">
+    <h1 id="hallo" class="bangers">Hallo Wereld!</h1>  
+  </div>
+</div>
+
+<script>
+  const element = document.querySelector('#hallo');
+  element.style.setProperty('--animate-duration', '4s');
+  element.classList.add('animate__animated', 'animate__fadeIn');
+</script>
+
 </body>
 </html>
