@@ -1,15 +1,11 @@
-@font-face {
-  font-family: 'Starjedi';
-  src: url('../fonts/Starjedi.ttf');
+h1, h3 {
+  font-family: 'Oxanium', cursive;
+  font-weight: 300;
 }
 
-/*h1, h3 {*/
-  /*font-family: 'Julius Sans One', sans-serif;*/
-/*}*/
-
-/*p {*/
-  /*font-family: 'Monda', sans-serif;*/
-/*}*/
+p, h5 {
+  font-family: 'Cabin', sans-serif;
+}
 
 /*@import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");*/
 
@@ -122,8 +118,4 @@ span:nth-child(12) {
     opacity: 1;
     filter: blur(0);
   }
-}
-
-h1, h3 {
-  font-family: 'Starjedi';
 }
