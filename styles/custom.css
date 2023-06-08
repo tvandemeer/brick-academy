@@ -1,10 +1,20 @@
+body {
+  background: rgb(171,171,171);
+  background: linear-gradient(0deg, rgba(171,171,171,1) 8%, rgba(102,102,102,1) 26%, rgba(0,0,0,1) 100%); 
+}
+
 h1, h3 {
   font-family: 'Oxanium', cursive;
   font-weight: 300;
 }
 
+h1 {
+  color: white;
+}
+
 p, h5 {
   font-family: 'Cabin', sans-serif;
+  color: white;
 }
 
 /*@import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");*/
