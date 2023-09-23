@@ -9,11 +9,73 @@
     <link rel="stylesheet" href="css/app.min.css">
     <script src="js/uikit/uikit.min.js"></script>
     <script src="js/uikit/uikit-icons.min.js"></script>
+    <script src="js/app.min.js"></script>
 </head>
 <body>
-   <div class="uk-container">
+
+    <nav class="uk-navbar-container">
+        <div class="uk-container">
+            <div uk-navbar>
+                <div class="uk-navbar-left">
+                    <ul class="uk-navbar-nav">
+                        <li class="uk-active">
+                            <a href="#" class="uk-navbar-item uk-logo">Logo</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="uk-navbar-right">
+                    <ul class="uk-navbar-nav uk-visible@s">
+                        <li>
+                            <a href="#">Item 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Item 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Item 3</a>
+                        </li>
+                        <li>
+                            <a href="#">Item 4</a>
+                        </li>
+                        <li>
+                            <a href="#">Item 5</a>
+                        </li>
+                    </ul>
+                    <a href="#" class="uk-navbar-toggle uk-hidden@s" uk-navbar-toggle-icon uk-toggle="target: #sidenav"></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div id="sidenav" uk-offcanvas="flip: true" class="uk-offcanvas">
+        <div class="uk-offcanvas-bar">
+            <ul class="uk-nav">
+                <li>
+                    <a href="#">Item 1</a>
+                </li>
+                <li>
+                    <a href="#">Item 2</a>
+                </li>
+                <li>
+                    <a href="#">Item 3</a>
+                </li>
+                <li>
+                    <a href="#">Item 4</a>
+                </li>
+                <li>
+                    <a href="#">Item 5</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+                        
+    <div class="uk-container">
+    <div class="uk-card uk-card-primary uk-card-body">
+        <h3 class="uk-card-title">Let op!</h3>
+    </div>
     <h1>Index page</h1>
 </div>
  
+
 </body>
 </html>
