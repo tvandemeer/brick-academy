@@ -1,1 +1,1 @@
-{"version":3,"sources":[],"names":[],"mappings":"","file":"app.min.css","sourcesContent":[]}
+{"version":3,"sources":["app.scss","app.css"],"names":[],"mappings":"AACA,QACI,oBCAJ","file":"app.min.css","sourcesContent":["//Custom CSS\n#noshop {\n    background-color: red;\n}\n","#noshop {\n  background-color: red;\n}"]}
