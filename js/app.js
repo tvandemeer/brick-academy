@@ -47,18 +47,18 @@ window.onload = () => {
         });
 
     function createPartEl (part_num, name) {
+        const wrapDiv = document.createElement('div');
         const partDiv = document.createElement('div');
         const numEl = document.createElement('p');
         const nameEl = document.createElement('p');
         partDiv.classList.add('uk-card');
         partDiv.classList.add('uk-card-body');
         partDiv.classList.add('uk-card-default');
-        partDiv.classList.add('uk-width-1-4@l');
-        partDiv.classList.add('uk-width-1-1@s');
         numEl.innerText = part_num;
         nameEl.innerText = name;
         partDiv.appendChild(numEl);
         partDiv.appendChild(nameEl);
-        parts_list.appendChild(partDiv);
+        wrapDiv.appendChild(partDiv);
+        parts_list.appendChild(wrapDiv);
     }
 };
