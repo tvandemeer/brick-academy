@@ -1,4 +1,4 @@
-const getUrl = 'https://rebrickable.com/api/v3/lego/parts/?page=';
+const getUrl = 'https://rebrickable.com/api/v3/lego/parts/';
 
 const page = 45;
 
@@ -16,7 +16,7 @@ window.onload = () => {
         return response.json();
     }
 
-    getParts(getUrl + page.toString())
+    getParts(getUrl + '?page=' + page.toString())
         .then((data) => {
             localStorage.setItem('parts', JSON.stringify(data));
             data['results'].forEach((item) => {
@@ -51,13 +51,17 @@ window.onload = () => {
         const partDiv = document.createElement('div');
         const numEl = document.createElement('p');
         const nameEl = document.createElement('p');
+        const priceEl = document.createElement('p');
         partDiv.classList.add('uk-card');
         partDiv.classList.add('uk-card-body');
         partDiv.classList.add('uk-card-default');
+        nameEl.classList.add('uk-card-title');
         numEl.innerText = part_num;
         nameEl.innerText = name;
-        partDiv.appendChild(numEl);
+        priceEl.innerText = (Math.random() * 5).toFixed(2);
         partDiv.appendChild(nameEl);
+        partDiv.appendChild(numEl);
+        partDiv.appendChild(priceEl);
         wrapDiv.appendChild(partDiv);
         parts_list.appendChild(wrapDiv);
     }
