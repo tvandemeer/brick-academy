@@ -1,2 +1,37 @@
+div.uk-navbar-left > ul.uk-navbar-nav {
+    gap: 0;
+    margin-left: -50px;
+}
+
+div.uk-navbar-left > ul.uk-navbar-nav > li:nth-child(2) {
+    margin-left: -40px;
+}
+
+.uk-offcanvas-bar {
+    background-color: #F8F8F8;
+}
+
+.uk-offcanvas-bar a {
+    color: #333333;
+}
+
+.uk-offcanvas-bar a:hover {
+    color: black;
+    background-color: white;
+}
+
+.uk-offcanvas-bar .uk-close {
+    color: #333333;
+    left: 0;
+    margin: 10px;
+}
+
+.uk-offcanvas-bar .uk-close:hover {
+    color: black;
+}
+
+.uk-offcanvas-bar .uk-nav {
+    margin-top: 30px;
+}
 
 /*# sourceMappingURL=app.css.map */
