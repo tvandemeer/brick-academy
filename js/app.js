@@ -1,5 +1,5 @@
 const getUrl = 'https://rebrickable.com/api/v3/lego/parts/';
-const page = 45;
+const page = 1;
 
 window.onload = () => {
     const parts_list = document.getElementById('parts_list');
@@ -39,30 +39,41 @@ getParts(getUrl + '?page=' + page.toString())
         const link_next = data['next'];
         let pagesNav = document.createElement('div');
         pagesNav.classList.add('uk-width-1-1');
+
+        const prevDiv = document.createElement('div');
+        const prevLink = document.createElement('a');
+        prevDiv.classList.add('uk-width-1-2');
+        prevLink.classList.add('uk-button');
+        prevLink.classList.add('uk-button-default');
+        prevLink.type = 'button';
         if (link_prev) {
-            const prevDiv = document.createElement('div');
-            const prevLink = document.createElement('a');
-            prevDiv.classList.add('uk-width-1-2');
-            prevLink.classList.add('uk-button');
-            prevLink.classList.add('uk-button-default');
-            prevLink.type = 'button';
             prevLink.href = link_prev;
-            prevLink.innerText = 'vorige';
-            prevDiv.appendChild(prevLink);
-            pagesNav.appendChild(prevDiv);
+        } else {
+            prevLink.href = '#';
+            prevLink.style.color = '#999999';
+            prevLink.style.cursor = 'not-allowed';
         }
+        prevLink.innerText = 'vorige';
+        prevDiv.appendChild(prevLink);
+        pagesNav.appendChild(prevDiv);
+
+        const nextDiv = document.createElement('div');
+        const nextLink = document.createElement('a');
+        nextDiv.classList.add('uk-width-1-2');
+        nextLink.classList.add('uk-button');
+        nextLink.classList.add('uk-button-default');
+        nextLink.type = 'button';
         if (link_next) {
-            const nextDiv = document.createElement('div');
-            const nextLink = document.createElement('a');
-            nextDiv.classList.add('uk-width-1-2');
-            nextLink.classList.add('uk-button');
-            nextLink.classList.add('uk-button-default');
-            nextLink.type = 'button';
             nextLink.href = link_next;
-            nextLink.innerText = 'volgende';
-            nextDiv.appendChild(nextLink);
-            pagesNav.appendChild(nextDiv);
+        } else {
+            nextLink.href = '#';
+            nextLink.style.color = '#999999';
+            nextLink.style.cursor = 'not-allowed';
         }
+        nextLink.innerText = 'volgende';
+        nextDiv.appendChild(nextLink);
+        pagesNav.appendChild(nextDiv);
+
         parts_list.appendChild(pagesNav);
     });
 
