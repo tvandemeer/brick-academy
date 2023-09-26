@@ -40,26 +40,28 @@ getParts(getUrl + '?page=' + page.toString())
         let pagesNav = document.createElement('div');
         pagesNav.classList.add('uk-width-1-1');
         if (link_prev) {
-            const prevBtn = document.createElement('button');
+            const prevDiv = document.createElement('div');
             const prevLink = document.createElement('a');
-            prevBtn.classList.add('uk-width-1-2');
-            prevBtn.type = 'button';
-            prevBtn.classList.add('uk-button');
+            prevDiv.classList.add('uk-width-1-2');
+            prevLink.classList.add('uk-button');
+            prevLink.classList.add('uk-button-default');
+            prevLink.type = 'button';
             prevLink.href = link_prev;
             prevLink.innerText = 'vorige';
-            prevBtn.appendChild(prevLink);
-            pagesNav.appendChild(prevBtn);
+            prevDiv.appendChild(prevLink);
+            pagesNav.appendChild(prevDiv);
         }
         if (link_next) {
-            const nextBtn = document.createElement('button');
+            const nextDiv = document.createElement('div');
             const nextLink = document.createElement('a');
-            nextBtn.classList.add('uk-width-1-2');
-            nextBtn.type = 'button';
-            nextBtn.classList.add('uk-button');
+            nextDiv.classList.add('uk-width-1-2');
+            nextLink.classList.add('uk-button');
+            nextLink.classList.add('uk-button-default');
+            nextLink.type = 'button';
             nextLink.href = link_next;
             nextLink.innerText = 'volgende';
-            nextBtn.appendChild(nextLink);
-            pagesNav.appendChild(nextBtn);
+            nextDiv.appendChild(nextLink);
+            pagesNav.appendChild(nextDiv);
         }
         parts_list.appendChild(pagesNav);
     });
