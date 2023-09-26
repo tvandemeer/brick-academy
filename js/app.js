@@ -90,6 +90,9 @@ function createPartEl (part_num, name) {
     imgEl.src = "https://placehold.co/600x400";
     partDiv.classList.add('uk-card');
     partDiv.classList.add('uk-card-default');
+    partDiv.classList.add('animate__animated');
+    partDiv.classList.add('animate__fadeIn');
+    partDiv.classList.add('animate__slow');
     imgDiv.classList.add('uk-card-media-top');
     bodyDiv.classList.add('uk-card-body');
     nameEl.classList.add('uk-card-title');
