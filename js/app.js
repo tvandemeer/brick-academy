@@ -26,29 +26,42 @@ getParts(getUrl + '?page=' + page.toString())
         getDetails(url = getUrl + part_nums)
             .then((data) => {
                 sessionStorage.setItem('details', JSON.stringify(data));
+                data['results'].forEach((item) => {
+                    let partImgEl = document.getElementById(item['part_num']);
+                    if (item['part_img_url']) {
+                        partImgEl.src = item['part_img_url'];
+                    } else {
+                        partImgEl.src = "img/geen_afbeelding.jpg";
+                    }
+                });
             });
         const link_prev = data['previous'];
         const link_next = data['next'];
+        let pagesNav = document.createElement('div');
+        pagesNav.classList.add('uk-width-1-1');
         if (link_prev) {
             const prevBtn = document.createElement('button');
             const prevLink = document.createElement('a');
+            prevBtn.classList.add('uk-width-1-2');
             prevBtn.type = 'button';
             prevBtn.classList.add('uk-button');
             prevLink.href = link_prev;
             prevLink.innerText = 'vorige';
             prevBtn.appendChild(prevLink);
-            parts_list.appendChild(prevBtn);
+            pagesNav.appendChild(prevBtn);
         }
         if (link_next) {
             const nextBtn = document.createElement('button');
             const nextLink = document.createElement('a');
+            nextBtn.classList.add('uk-width-1-2');
             nextBtn.type = 'button';
             nextBtn.classList.add('uk-button');
             nextLink.href = link_next;
             nextLink.innerText = 'volgende';
             nextBtn.appendChild(nextLink);
-            parts_list.appendChild(nextBtn);
+            pagesNav.appendChild(nextBtn);
         }
+        parts_list.appendChild(pagesNav);
     });
 
 function createPartEl (part_num, name) {
@@ -91,9 +104,3 @@ async function getDetails(url = '') {
     });
     return response.json();
 }
-
-partDetails = JSON.parse(sessionStorage.getItem('details'));
-partDetails['results'].forEach((item) => {
-    console.log(item['part_img_url']);
-});
-console.log(Object.keys(partDetails['results']));

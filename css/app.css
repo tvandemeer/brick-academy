@@ -16,4 +16,8 @@ div.uk-navbar-left > ul.uk-navbar-nav > li:nth-child(2) {
     left: 20px;
 }
 
+.uk-card-title {
+    font-size: 1.2rem;
+}
+
 /*# sourceMappingURL=app.css.map */
