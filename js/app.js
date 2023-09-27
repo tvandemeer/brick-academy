@@ -1,3 +1,18 @@
+class Klant {
+  constructor(klant_id, naam) {
+    this.klant_id = klant_id;
+    this.naam = naam;
+  }
+}
+
+class Mandje {
+  constructor(mandje_id, klant_id, artikelen) {
+    this.mandje_id = mandje_id;
+    this.klant_id = klant_id;
+    this.artikelen = [];
+  }
+}
+
 const getUrl = 'https://rebrickable.com/api/v3/lego/parts/';
 const page_size = 20;
 let page = 1;
@@ -29,25 +44,31 @@ getParts(url = `${getUrl}?page=${page.toString()}&page_size=${page_size.toString
     createPartsList(data);
   });
 
+const klant1 = new Klant(1, 'Thomas');
+localStorage.setItem('klant1', JSON.stringify(klant1));
+
+const mand1 = new Mandje(1, klant1, []);
+localStorage.setItem('mand1', JSON.stringify(mand1));
+
 function createPartsList(data) {
   sessionStorage.setItem('parts', JSON.stringify(data));
-  let part_nums = '?part_nums=';
+  // let part_nums = '?part_nums=';
   data.results.forEach((item) => {
-    part_nums += `${item.part_num.toString()},`;
-    createPartEl(item.part_num, item.name);
+    // part_nums += `${item.part_num.toString()},`;
+    createPartEl(item.part_num, item.name, item.part_img_url, item.part_url);
   });
-  getDetails(url = getUrl + part_nums)
-    .then((data) => {
-      sessionStorage.setItem('details', JSON.stringify(data));
-      data.results.forEach((item) => {
-        const partImgEl = document.getElementById(item.part_num);
-        if (item.part_img_url) {
-          partImgEl.src = item.part_img_url;
-        } else {
-          partImgEl.src = 'img/geen_afbeelding.jpg';
-        }
-      });
-    });
+  // getDetails(url = getUrl + part_nums)
+  // .then((data) => {
+  // sessionStorage.setItem('details', JSON.stringify(data));
+  // data.results.forEach((item) => {
+  // const partImgEl = document.getElementById(item.part_num);
+  // if (item.part_img_url) {
+  // partImgEl.src = item.part_img_url;
+  // } else {
+  // partImgEl.src = 'img/geen_afbeelding.jpg';
+  // }
+  // });
+  // });
   const link_prev = data.previous;
   const link_next = data.next;
   const pagesNav = document.createElement('div');
@@ -97,7 +118,7 @@ function createPartsList(data) {
   pagesNavListeners();
 }
 
-function createPartEl(part_num, name) {
+function createPartEl(part_num, name, img_url, part_url) {
   const wrapDiv = document.createElement('div');
   const partDiv = document.createElement('div');
   const imgDiv = document.createElement('div');
@@ -107,9 +128,16 @@ function createPartEl(part_num, name) {
   const imgEl = document.createElement('img');
   const addLink = document.createElement('a');
   const cartIcon = document.createElement('span');
+  const detailLink = document.createElement('a');
+  const detailIcon = document.createElement('span');
   cartIcon.setAttribute('uk-icon', 'icon: cart');
+  detailIcon.setAttribute('uk-icon', 'icon: link');
   imgEl.id = part_num;
-  imgEl.src = 'https://placehold.co/600x400?text=Even\nwachten...';
+  if (img_url) {
+    imgEl.src = img_url;
+  } else {
+    imgEl.src = 'img/geen_afbeelding.jpg';
+  }
   wrapDiv.classList.add('part_wrap');
   partDiv.classList.add('uk-card');
   partDiv.classList.add('uk-card-default');
@@ -126,6 +154,15 @@ function createPartEl(part_num, name) {
   imgDiv.appendChild(imgEl);
   partDiv.appendChild(imgDiv);
   nameEl.innerText = name;
+  detailLink.classList.add('uk-button');
+  detailLink.classList.add('uk-button-default');
+  detailLink.classList.add('uk-button-small');
+  detailLink.classList.add('uk-position-relative');
+  detailLink.classList.add('part-detail');
+  detailLink.href = part_url;
+  detailLink.setAttribute('target', '_blank');
+  detailLink.innerText = 'details';
+  detailLink.appendChild(detailIcon);
   priceEl.innerText = `€${(Math.random() * 5).toFixed(2)}`;
   addLink.id = `add_${part_num}`;
   addLink.href = '#';
@@ -142,6 +179,7 @@ function createPartEl(part_num, name) {
   addLink.classList.add('add_button');
   addLink.appendChild(cartIcon);
   bodyDiv.appendChild(nameEl);
+  bodyDiv.appendChild(detailLink);
   bodyDiv.appendChild(priceEl);
   bodyDiv.appendChild(addLink);
   partDiv.appendChild(bodyDiv);
@@ -149,15 +187,15 @@ function createPartEl(part_num, name) {
   parts_list.appendChild(wrapDiv);
 }
 
-async function getDetails(url = '') {
-  const response = await fetch(url, {
-    method: 'GET',
-    headers: {
-      Authorization: 'key bc4537b496eaab6056e0ce49fb54bc55',
-    },
-  });
-  return response.json();
-}
+// async function getDetails(url = '') {
+// const response = await fetch(url, {
+// method: 'GET',
+// headers: {
+// Authorization: 'key bc4537b496eaab6056e0ce49fb54bc55',
+// },
+// });
+// return response.json();
+// }
 
 function pagesNavListeners() {
   const navButtons = document.querySelectorAll('.pages-nav');
@@ -182,21 +220,6 @@ function pagesNavListeners() {
         });
     }));
   });
-}
-
-class Klant {
-  constructor(klant_id, naam) {
-    this.klant_id = klant_id;
-    this.naam = naam;
-  }
-}
-
-class Mandje {
-  constructor(mandje_id, klant_id, artikelen) {
-    this.mandje_id = mandje_id;
-    this.klant_id = klant_id;
-    this.artikelen = [];
-  }
 }
 
 class Artikel {
