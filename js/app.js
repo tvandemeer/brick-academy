@@ -37,14 +37,18 @@ getParts(getUrl + '?page=' + page.toString())
             });
         const link_prev = data['previous'];
         const link_next = data['next'];
-        let pagesNav = document.createElement('div');
-        pagesNav.classList.add('uk-width-1-1');
+        const pagesNav = document.createElement('div');
+        pagesNav.id = 'pages_nav_div';
+        pagesNav.classList.add('uk-container');
+        pagesNav.classList.add('uk-flex');
+        pagesNav.classList.add('uk-flex-between');
+        pagesNav.classList.add('uk-margin-top');
 
         const prevDiv = document.createElement('div');
         const prevLink = document.createElement('a');
-        prevDiv.classList.add('uk-width-1-2');
         prevLink.classList.add('uk-button');
         prevLink.classList.add('uk-button-default');
+        prevLink.classList.add('pages-nav');
         prevLink.type = 'button';
         if (link_prev) {
             prevLink.href = link_prev;
@@ -59,9 +63,9 @@ getParts(getUrl + '?page=' + page.toString())
 
         const nextDiv = document.createElement('div');
         const nextLink = document.createElement('a');
-        nextDiv.classList.add('uk-width-1-2');
         nextLink.classList.add('uk-button');
         nextLink.classList.add('uk-button-default');
+        nextLink.classList.add('pages-nav');
         nextLink.type = 'button';
         if (link_next) {
             nextLink.href = link_next;
@@ -74,7 +78,9 @@ getParts(getUrl + '?page=' + page.toString())
         nextDiv.appendChild(nextLink);
         pagesNav.appendChild(nextDiv);
 
-        parts_list.appendChild(pagesNav);
+        document.body.appendChild(pagesNav);
+
+        pagesNavListeners();
     });
 
 function createPartEl (part_num, name) {
@@ -88,6 +94,7 @@ function createPartEl (part_num, name) {
     const imgEl = document.createElement('img');
     imgEl.id = part_num;
     imgEl.src = "https://placehold.co/600x400";
+    wrapDiv.classList.add('part_wrap');
     partDiv.classList.add('uk-card');
     partDiv.classList.add('uk-card-default');
     partDiv.classList.add('animate__animated');
@@ -119,4 +126,23 @@ async function getDetails(url = '') {
         },
     });
     return response.json();
+}
+
+function pagesNavListeners () {
+    const navButtons = document.querySelectorAll('.pages-nav');
+    navButtons.forEach((btn) => {
+        btn.addEventListener('click', ((event) => {
+            event.preventDefault();
+            const targetHref = event.target.href;
+            const hrefSplit = targetHref.split('page=');
+            if (hrefSplit[1]) {
+                const page = hrefSplit[1];
+                const nodes = document.querySelectorAll('.part_wrap');
+                nodes.forEach((node) => {
+                    node.remove();
+                });
+                document.getElementById('pages_nav_div').remove();
+            }
+        }));
+    });
 }
