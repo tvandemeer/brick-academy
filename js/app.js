@@ -1,4 +1,5 @@
 const getUrl = 'https://rebrickable.com/api/v3/lego/parts/';
+const page_size = 20;
 let page = 1;
 
 window.onload = () => {
@@ -15,7 +16,7 @@ async function getParts(url = '') {
     return response.json();
 }
 
-getParts(getUrl + '?page=' + page.toString())
+getParts(getUrl + '?page=' + page.toString() + '&page_size=' + page_size.toString())
     .then((data) => {
         createPartsList(data);
     });
@@ -163,7 +164,7 @@ function pagesNavListeners () {
                     node.remove();
                 });
                 document.getElementById('pages_nav_div').remove();
-                getParts(url = getUrl + '?page=' + page)
+                getParts(url = getUrl + '?page=' + page + '&page_size=' + page_size.toString())
                     .then((data) => {
                         createPartsList(data);
                     });
