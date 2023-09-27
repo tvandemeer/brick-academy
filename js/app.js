@@ -2,6 +2,14 @@ const getUrl = 'https://rebrickable.com/api/v3/lego/parts/';
 const page_size = 20;
 let page = 1;
 
+let loggedIn;
+
+if (sessionStorage.getItem('logged_in')) {
+    loggedIn = sessionStorage.getItem('logged_in');
+} else {
+    sessionStorage.setItem('logged_in', 0);
+}
+
 window.onload = () => {
     const parts_list = document.getElementById('parts_list');
 };
@@ -171,4 +179,25 @@ function pagesNavListeners () {
             }
         }));
     });
+}
+
+class Klant {
+    constructor(klant_id, naam) {
+        this.klant_id = klant_id;
+        this.naam = naam;
+    }
+}
+
+class Mandje {
+    constructor(mandje_id, klant_id, artikelen) {
+        this.mandje_id = mandje_id;
+        this.klant_id = klant_id;
+        this.artikelen = [];
+    }
+}
+
+class Artikel {
+    constructor(part_num) {
+        this.part_num = part_num;
+    }
 }
