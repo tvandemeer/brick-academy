@@ -47,6 +47,7 @@ function createPartsList (data) {
     pagesNav.classList.add('uk-flex');
     pagesNav.classList.add('uk-flex-between');
     pagesNav.classList.add('uk-margin-top');
+    pagesNav.classList.add('uk-margin-bottom');
 
     const prevDiv = document.createElement('div');
     const prevLink = document.createElement('a');
@@ -97,7 +98,7 @@ function createPartEl (part_num, name) {
     const priceEl = document.createElement('p');
     const imgEl = document.createElement('img');
     imgEl.id = part_num;
-    imgEl.src = "https://placehold.co/600x400";
+    imgEl.src = "https://placehold.co/600x400?text=Even\nwachten...";
     wrapDiv.classList.add('part_wrap');
     partDiv.classList.add('uk-card');
     partDiv.classList.add('uk-card-default');
