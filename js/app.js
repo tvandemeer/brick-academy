@@ -24,7 +24,7 @@ async function getParts(url = '') {
   return response.json();
 }
 
-getParts(`${getUrl}?page=${page.toString()}&page_size=${page_size.toString()}`)
+getParts(url = `${getUrl}?page=${page.toString()}&page_size=${page_size.toString()}`)
   .then((data) => {
     createPartsList(data);
   });
@@ -164,19 +164,21 @@ function pagesNavListeners() {
     btn.addEventListener('click', ((event) => {
       event.preventDefault();
       const targetHref = event.target.href;
-      const hrefSplit = targetHref.split('page=');
-      if (hrefSplit[1]) {
-        page = hrefSplit[1];
-        const nodes = document.querySelectorAll('.part_wrap');
-        nodes.forEach((node) => {
-          node.remove();
-        });
-        document.getElementById('pages_nav_div').remove();
-        getParts(url = `${getUrl}?page=${page}&page_size=${page_size.toString()}`)
-          .then((data) => {
-            createPartsList(data);
-          });
+      const hrefSplit = targetHref.split('&');
+      if (!hrefSplit[1]) {
+        page = '1';
+      } else {
+        page = hrefSplit[0].split('=')[1];
       }
+      const nodes = document.querySelectorAll('.part_wrap');
+      nodes.forEach((node) => {
+        node.remove();
+      });
+      document.getElementById('pages_nav_div').remove();
+      getParts(url = `${getUrl}?page=${page}&page_size=${page_size.toString()}`)
+        .then((data) => {
+          createPartsList(data);
+        });
     }));
   });
 }
