@@ -24,4 +24,8 @@ div.uk-navbar-left > ul.uk-navbar-nav > li:nth-child(2) {
     border-radius: 1rem;
 }
 
+.uk-card-title {
+    bottom: 20px;
+}
+
 /*# sourceMappingURL=app.css.map */
