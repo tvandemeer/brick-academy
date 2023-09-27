@@ -20,4 +20,8 @@ div.uk-navbar-left > ul.uk-navbar-nav > li:nth-child(2) {
     font-size: 1.2rem;
 }
 
+.uk-card {
+    border-radius: 1rem;
+}
+
 /*# sourceMappingURL=app.css.map */

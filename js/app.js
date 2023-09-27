@@ -1,5 +1,5 @@
 const getUrl = 'https://rebrickable.com/api/v3/lego/parts/';
-const page = 1;
+let page = 1;
 
 window.onload = () => {
     const parts_list = document.getElementById('parts_list');
@@ -17,71 +17,75 @@ async function getParts(url = '') {
 
 getParts(getUrl + '?page=' + page.toString())
     .then((data) => {
-        sessionStorage.setItem('parts', JSON.stringify(data));
-        let part_nums = '?part_nums=';
-        data['results'].forEach((item) => {
-            part_nums += item['part_num'].toString() + ',';
-            createPartEl(item['part_num'], item['name']);
-        });
-        getDetails(url = getUrl + part_nums)
-            .then((data) => {
-                sessionStorage.setItem('details', JSON.stringify(data));
-                data['results'].forEach((item) => {
-                    let partImgEl = document.getElementById(item['part_num']);
-                    if (item['part_img_url']) {
-                        partImgEl.src = item['part_img_url'];
-                    } else {
-                        partImgEl.src = "img/geen_afbeelding.jpg";
-                    }
-                });
-            });
-        const link_prev = data['previous'];
-        const link_next = data['next'];
-        const pagesNav = document.createElement('div');
-        pagesNav.id = 'pages_nav_div';
-        pagesNav.classList.add('uk-container');
-        pagesNav.classList.add('uk-flex');
-        pagesNav.classList.add('uk-flex-between');
-        pagesNav.classList.add('uk-margin-top');
-
-        const prevDiv = document.createElement('div');
-        const prevLink = document.createElement('a');
-        prevLink.classList.add('uk-button');
-        prevLink.classList.add('uk-button-default');
-        prevLink.classList.add('pages-nav');
-        prevLink.type = 'button';
-        if (link_prev) {
-            prevLink.href = link_prev;
-        } else {
-            prevLink.href = '#';
-            prevLink.style.color = '#999999';
-            prevLink.style.cursor = 'not-allowed';
-        }
-        prevLink.innerText = 'vorige';
-        prevDiv.appendChild(prevLink);
-        pagesNav.appendChild(prevDiv);
-
-        const nextDiv = document.createElement('div');
-        const nextLink = document.createElement('a');
-        nextLink.classList.add('uk-button');
-        nextLink.classList.add('uk-button-default');
-        nextLink.classList.add('pages-nav');
-        nextLink.type = 'button';
-        if (link_next) {
-            nextLink.href = link_next;
-        } else {
-            nextLink.href = '#';
-            nextLink.style.color = '#999999';
-            nextLink.style.cursor = 'not-allowed';
-        }
-        nextLink.innerText = 'volgende';
-        nextDiv.appendChild(nextLink);
-        pagesNav.appendChild(nextDiv);
-
-        document.body.appendChild(pagesNav);
-
-        pagesNavListeners();
+        createPartsList(data);
     });
+
+function createPartsList (data) {
+    sessionStorage.setItem('parts', JSON.stringify(data));
+    let part_nums = '?part_nums=';
+    data['results'].forEach((item) => {
+        part_nums += item['part_num'].toString() + ',';
+        createPartEl(item['part_num'], item['name']);
+    });
+    getDetails(url = getUrl + part_nums)
+        .then((data) => {
+            sessionStorage.setItem('details', JSON.stringify(data));
+            data['results'].forEach((item) => {
+                let partImgEl = document.getElementById(item['part_num']);
+                if (item['part_img_url']) {
+                    partImgEl.src = item['part_img_url'];
+                } else {
+                    partImgEl.src = "img/geen_afbeelding.jpg";
+                }
+            });
+        });
+    const link_prev = data['previous'];
+    const link_next = data['next'];
+    const pagesNav = document.createElement('div');
+    pagesNav.id = 'pages_nav_div';
+    pagesNav.classList.add('uk-container');
+    pagesNav.classList.add('uk-flex');
+    pagesNav.classList.add('uk-flex-between');
+    pagesNav.classList.add('uk-margin-top');
+
+    const prevDiv = document.createElement('div');
+    const prevLink = document.createElement('a');
+    prevLink.classList.add('uk-button');
+    prevLink.classList.add('uk-button-default');
+    prevLink.classList.add('pages-nav');
+    prevLink.type = 'button';
+    if (link_prev) {
+        prevLink.href = link_prev;
+    } else {
+        prevLink.href = '#';
+        prevLink.style.color = '#999999';
+        prevLink.style.cursor = 'not-allowed';
+    }
+    prevLink.innerText = 'vorige';
+    prevDiv.appendChild(prevLink);
+    pagesNav.appendChild(prevDiv);
+
+    const nextDiv = document.createElement('div');
+    const nextLink = document.createElement('a');
+    nextLink.classList.add('uk-button');
+    nextLink.classList.add('uk-button-default');
+    nextLink.classList.add('pages-nav');
+    nextLink.type = 'button';
+    if (link_next) {
+        nextLink.href = link_next;
+    } else {
+        nextLink.href = '#';
+        nextLink.style.color = '#999999';
+        nextLink.style.cursor = 'not-allowed';
+    }
+    nextLink.innerText = 'volgende';
+    nextDiv.appendChild(nextLink);
+    pagesNav.appendChild(nextDiv);
+
+    document.body.appendChild(pagesNav);
+
+    pagesNavListeners();
+}
 
 function createPartEl (part_num, name) {
     const wrapDiv = document.createElement('div');
@@ -136,12 +140,16 @@ function pagesNavListeners () {
             const targetHref = event.target.href;
             const hrefSplit = targetHref.split('page=');
             if (hrefSplit[1]) {
-                const page = hrefSplit[1];
+                page = hrefSplit[1];
                 const nodes = document.querySelectorAll('.part_wrap');
                 nodes.forEach((node) => {
                     node.remove();
                 });
                 document.getElementById('pages_nav_div').remove();
+                getParts(url = getUrl + '?page=' + page)
+                    .then((data) => {
+                        createPartsList(data);
+                    });
             }
         }));
     });
