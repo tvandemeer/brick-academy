@@ -102,7 +102,6 @@ function createPartEl(part_num, name) {
   const partDiv = document.createElement('div');
   const imgDiv = document.createElement('div');
   const bodyDiv = document.createElement('div');
-  // const numEl = document.createElement('p');
   const nameEl = document.createElement('p');
   const priceEl = document.createElement('p');
   const imgEl = document.createElement('img');
@@ -128,6 +127,7 @@ function createPartEl(part_num, name) {
   partDiv.appendChild(imgDiv);
   nameEl.innerText = name;
   priceEl.innerText = `€${(Math.random() * 5).toFixed(2)}`;
+  addLink.id = `add_${part_num}`;
   addLink.href = '#';
   addLink.innerText = '+ ';
   addLink.type = 'button';
@@ -139,6 +139,7 @@ function createPartEl(part_num, name) {
   addLink.classList.add('uk-margin-bottom');
   addLink.classList.add('uk-margin-right');
   addLink.classList.add('uk-border-rounded');
+  addLink.classList.add('add_button');
   addLink.appendChild(cartIcon);
   bodyDiv.appendChild(nameEl);
   bodyDiv.appendChild(priceEl);
