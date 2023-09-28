@@ -121,6 +121,8 @@ function createPartsList(data) {
   document.body.appendChild(pagesNav);
 
   pagesNavListeners();
+
+  addCartListeners();
 }
 
 function createPartEl(part_num, name, img_url, part_url) {
@@ -135,7 +137,7 @@ function createPartEl(part_num, name, img_url, part_url) {
   const cartIcon = document.createElement('span');
   const detailLink = document.createElement('a');
   const detailIcon = document.createElement('span');
-  cartIcon.setAttribute('uk-icon', 'icon: cart');
+  cartIcon.setAttribute('uk-icon', 'icon: cart; ratio: 2');
   detailIcon.setAttribute('uk-icon', 'icon: link');
   imgEl.id = part_num;
   if (img_url) {
@@ -172,10 +174,10 @@ function createPartEl(part_num, name, img_url, part_url) {
   detailLink.innerText = 'details';
   detailLink.appendChild(detailIcon);
   priceEl.innerText = `€${(Math.random() * 5).toFixed(2)}`;
-  addLink.id = `add_${part_num}`;
   addLink.href = '#';
   addLink.innerText = '+ ';
   addLink.type = 'button';
+  addLink.setAttribute('data-part', part_num);
   addLink.classList.add('uk-button');
   addLink.classList.add('uk-button-primary');
   addLink.classList.add('uk-inline');
@@ -185,11 +187,15 @@ function createPartEl(part_num, name, img_url, part_url) {
   addLink.classList.add('uk-margin-right');
   addLink.classList.add('uk-border-rounded');
   addLink.classList.add('add_button');
-  addLink.appendChild(cartIcon);
+  addLink.classList.add('uk-button-small');
+  cartIcon.classList.add('uk-position-relative');
+  cartIcon.classList.add('part-cart');
+  cartIcon.classList.add('uk-width-1-1');
   bodyDiv.appendChild(nameEl);
   bodyDiv.appendChild(detailLink);
   bodyDiv.appendChild(priceEl);
   bodyDiv.appendChild(addLink);
+  bodyDiv.appendChild(cartIcon);
   partDiv.appendChild(bodyDiv);
   wrapDiv.appendChild(partDiv);
   parts_list.appendChild(wrapDiv);
@@ -220,6 +226,15 @@ function pagesNavListeners() {
             createPartsList(data);
           });
       }
+    }));
+  });
+}
+
+function addCartListeners() {
+  const addButtons = document.querySelectorAll('.add_button');
+  addButtons.forEach((btn) => {
+    btn.addEventListener('click', ((event) => {
+      event.preventDefault();
     }));
   });
 }
