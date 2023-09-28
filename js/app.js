@@ -73,6 +73,7 @@ function createPartsList(data) {
 
   const prevDiv = document.createElement('div');
   const prevLink = document.createElement('a');
+  const prevIcon = document.createElement('span');
   prevLink.classList.add('uk-button');
   prevLink.classList.add('uk-button-default');
   prevLink.classList.add('pages-nav');
@@ -84,12 +85,15 @@ function createPartsList(data) {
     prevLink.style.color = '#999999';
     prevLink.style.cursor = 'not-allowed';
   }
+  prevIcon.setAttribute('uk-icon', 'icon: chevron-left');
   prevLink.innerText = 'vorige';
+  prevDiv.appendChild(prevIcon);
   prevDiv.appendChild(prevLink);
   pagesNav.appendChild(prevDiv);
 
   const nextDiv = document.createElement('div');
   const nextLink = document.createElement('a');
+  const nextIcon = document.createElement('span');
   nextLink.classList.add('uk-button');
   nextLink.classList.add('uk-button-default');
   nextLink.classList.add('pages-nav');
@@ -101,8 +105,10 @@ function createPartsList(data) {
     nextLink.style.color = '#999999';
     nextLink.style.cursor = 'not-allowed';
   }
+  nextIcon.setAttribute('uk-icon', 'icon: chevron-right');
   nextLink.innerText = 'volgende';
   nextDiv.appendChild(nextLink);
+  nextDiv.appendChild(nextIcon);
   pagesNav.appendChild(nextDiv);
 
   document.body.appendChild(pagesNav);
