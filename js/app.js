@@ -31,14 +31,20 @@ window.onload = () => {
     loggedIn = sessionStorage.getItem('loggedIn');
   } else {
     sessionStorage.setItem('loggedIn', false);
+    loggedIn = false;
   }
 
   if (!loggedIn) {
-    const loggedModal = UIkit.modal('#logged-modal');
+    UIkit.modal.prompt('Voor testdoeleinden vragen we je een naam op te geven')
+      .then((res) => {
+        if (res) {
+          sessionStorage.setItem('loggedIn', true);
+          loggedIn = true;
+        }
+      });
     if (window.location.pathname != '/index.html') {
       window.location.replace('index.html');
     }
-    // loggedModal.show();
   }
 };
 
