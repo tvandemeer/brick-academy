@@ -14,8 +14,10 @@ class Mandje {
 }
 
 class Artikel {
-  constructor(part_num) {
+  constructor(part_num, naam, prijs) {
     this.part_num = part_num;
+    this.naam = naam;
+    this.prijs = prijs;
   }
 }
 
@@ -235,7 +237,13 @@ function addCartListeners() {
   const addButtons = document.querySelectorAll('.add_button');
   addButtons.forEach((btn) => {
     btn.addEventListener('click', ((event) => {
-      event.preventDefault();
+      // event.preventDefault();
+      const part_num = event.target.dataset.part;
+      const siblings = event.target.parentNode.childNodes;
+      const naam = siblings[0].innerText;
+      const prijs = siblings[2].innerText.split('€')[1];
+      const artikel = new Artikel(part_num, naam, prijs);
+      console.log(artikel);
     }));
   });
 }
