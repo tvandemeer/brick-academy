@@ -25,23 +25,34 @@ const getUrl = 'https://rebrickable.com/api/v3/lego/parts/';
 const page_size = '20';
 let page = '1';
 
-// let loggedIn;
-
 window.onload = () => {
   const parts_list = document.getElementById('parts_list');
 
-  // Nog iets met localStorage en loggedIn doen!
-  if (localStorage.getItem('loggedIn')) {
-    console.log(localStorage.getItem('loggedIn'));
+  if (sessionStorage.getItem('loggedIn')) {
+    console.log(sessionStorage.getItem('loggedIn'));
   } else {
     UIkit.modal.prompt('Naam:', '')
       .then((res) => {
         if (!res) {
           window.location.reload();
         } else {
-          localStorage.setItem('loggedIn', res);
+          sessionStorage.setItem('loggedIn', res);
         }
       });
+  }
+
+  if (localStorage.getItem('klanten')) {
+    const klanten = JSON.parse(localStorage.getItem('klanten'));
+  } else {
+    const klanten = [];
+    localStorage.setItem('klanten', JSON.stringify(klanten));
+  }
+
+  if (localStorage.getItem('winkelmandjes')) {
+    const winkelmandjes = JSON.parse(localStorage.getItem('winkelmandjes'));
+  } else {
+    const winkelmandjes = [];
+    localStorage.setItem('winkelmandjes', JSON.stringify(winkelmandjes));
   }
 };
 
@@ -59,12 +70,6 @@ getParts(url = `${getUrl}?page=${page}&page_size=${page_size}`)
   .then((data) => {
     createPartsList(data);
   });
-
-const klant1 = new Klant(1, 'Thomas');
-localStorage.setItem('klant1', JSON.stringify(klant1));
-
-const mand1 = new Mandje(1, klant1, []);
-localStorage.setItem('mand1', JSON.stringify(mand1));
 
 function createPartsList(data) {
   sessionStorage.setItem('parts', JSON.stringify(data));
@@ -237,7 +242,6 @@ function addCartListeners() {
   const addButtons = document.querySelectorAll('.add_button');
   addButtons.forEach((btn) => {
     btn.addEventListener('click', ((event) => {
-      // event.preventDefault();
       const part_num = event.target.dataset.part;
       const siblings = event.target.parentNode.childNodes;
       const naam = siblings[0].innerText;
