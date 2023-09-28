@@ -13,9 +13,15 @@ class Mandje {
   }
 }
 
+class Artikel {
+  constructor(part_num) {
+    this.part_num = part_num;
+  }
+}
+
 const getUrl = 'https://rebrickable.com/api/v3/lego/parts/';
-const page_size = 20;
-let page = 1;
+const page_size = '20';
+let page = '1';
 
 let loggedIn;
 
@@ -39,7 +45,7 @@ async function getParts(url = '') {
   return response.json();
 }
 
-getParts(url = `${getUrl}?page=${page.toString()}&page_size=${page_size.toString()}`)
+getParts(url = `${getUrl}?page=${page}&page_size=${page_size}`)
   .then((data) => {
     createPartsList(data);
   });
@@ -52,23 +58,9 @@ localStorage.setItem('mand1', JSON.stringify(mand1));
 
 function createPartsList(data) {
   sessionStorage.setItem('parts', JSON.stringify(data));
-  // let part_nums = '?part_nums=';
   data.results.forEach((item) => {
-    // part_nums += `${item.part_num.toString()},`;
     createPartEl(item.part_num, item.name, item.part_img_url, item.part_url);
   });
-  // getDetails(url = getUrl + part_nums)
-  // .then((data) => {
-  // sessionStorage.setItem('details', JSON.stringify(data));
-  // data.results.forEach((item) => {
-  // const partImgEl = document.getElementById(item.part_num);
-  // if (item.part_img_url) {
-  // partImgEl.src = item.part_img_url;
-  // } else {
-  // partImgEl.src = 'img/geen_afbeelding.jpg';
-  // }
-  // });
-  // });
   const link_prev = data.previous;
   const link_next = data.next;
   const pagesNav = document.createElement('div');
@@ -187,16 +179,6 @@ function createPartEl(part_num, name, img_url, part_url) {
   parts_list.appendChild(wrapDiv);
 }
 
-// async function getDetails(url = '') {
-// const response = await fetch(url, {
-// method: 'GET',
-// headers: {
-// Authorization: 'key bc4537b496eaab6056e0ce49fb54bc55',
-// },
-// });
-// return response.json();
-// }
-
 function pagesNavListeners() {
   const navButtons = document.querySelectorAll('.pages-nav');
   navButtons.forEach((btn) => {
@@ -204,26 +186,24 @@ function pagesNavListeners() {
       event.preventDefault();
       const targetHref = event.target.href;
       const hrefSplit = targetHref.split('&');
-      if (!hrefSplit[1]) {
+      if (!hrefSplit[1] && page === '2') {
         page = '1';
+      } else if (!hrefSplit[1]) {
+        page = 0;
       } else {
         page = hrefSplit[0].split('=')[1];
       }
-      const nodes = document.querySelectorAll('.part_wrap');
-      nodes.forEach((node) => {
-        node.remove();
-      });
-      document.getElementById('pages_nav_div').remove();
-      getParts(url = `${getUrl}?page=${page}&page_size=${page_size.toString()}`)
-        .then((data) => {
-          createPartsList(data);
+      if (page) {
+        const nodes = document.querySelectorAll('.part_wrap');
+        nodes.forEach((node) => {
+          node.remove();
         });
+        document.getElementById('pages_nav_div').remove();
+        getParts(url = `${getUrl}?page=${page}&page_size=${page_size}`)
+          .then((data) => {
+            createPartsList(data);
+          });
+      }
     }));
   });
-}
-
-class Artikel {
-  constructor(part_num) {
-    this.part_num = part_num;
-  }
 }
