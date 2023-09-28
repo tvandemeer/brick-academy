@@ -25,16 +25,19 @@ let page = '1';
 
 let loggedIn;
 
-if (sessionStorage.getItem('logged_in')) {
-  loggedIn = sessionStorage.getItem('loggedIn');
-} else {
-  sessionStorage.setItem('loggedIn', false);
-}
-
 window.onload = () => {
   const parts_list = document.getElementById('parts_list');
+  if (sessionStorage.getItem('logged_in')) {
+    loggedIn = sessionStorage.getItem('loggedIn');
+  } else {
+    sessionStorage.setItem('loggedIn', false);
+  }
+
   if (!loggedIn) {
     const loggedModal = UIkit.modal('#logged-modal');
+    if (window.location.pathname != '/index.html') {
+      window.location.replace('index.html');
+    }
     // loggedModal.show();
   }
 };
