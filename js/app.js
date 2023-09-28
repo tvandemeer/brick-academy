@@ -23,28 +23,23 @@ const getUrl = 'https://rebrickable.com/api/v3/lego/parts/';
 const page_size = '20';
 let page = '1';
 
-let loggedIn;
+// let loggedIn;
 
 window.onload = () => {
   const parts_list = document.getElementById('parts_list');
-  if (sessionStorage.getItem('logged_in')) {
-    loggedIn = sessionStorage.getItem('loggedIn');
-  } else {
-    sessionStorage.setItem('loggedIn', false);
-    loggedIn = false;
-  }
 
-  if (!loggedIn) {
-    UIkit.modal.prompt('Voor testdoeleinden vragen we je een naam op te geven')
+  // Nog iets met localStorage en loggedIn doen!
+  if (localStorage.getItem('loggedIn')) {
+    console.log(localStorage.getItem('loggedIn'));
+  } else {
+    UIkit.modal.prompt('Naam:', '')
       .then((res) => {
-        if (res) {
-          sessionStorage.setItem('loggedIn', true);
-          loggedIn = true;
+        if (!res) {
+          window.location.reload();
+        } else {
+          localStorage.setItem('loggedIn', res);
         }
       });
-    if (window.location.pathname != '/index.html') {
-      window.location.replace('index.html');
-    }
   }
 };
 
