@@ -12,8 +12,9 @@ div.uk-navbar-left > ul.uk-navbar-nav > li:nth-child(2) {
 }
 
 .price {
-    bottom: 20px;
-    left: 20px;
+    left: 2rem;
+    font-family: 'Passion One', cursive;
+    color: #646464;
 }
 
 .uk-card-title {
@@ -25,9 +26,9 @@ div.uk-navbar-left > ul.uk-navbar-nav > li:nth-child(2) {
 }
 
 .uk-card-title {
-    bottom: 20px;
+    bottom: 2rem;
 }
 
 .part-detail {
-    bottom: 35px;
+    bottom: 2.5rem;
 }

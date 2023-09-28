@@ -116,7 +116,7 @@ function createPartEl(part_num, name, img_url, part_url) {
   const imgDiv = document.createElement('div');
   const bodyDiv = document.createElement('div');
   const nameEl = document.createElement('p');
-  const priceEl = document.createElement('p');
+  const priceEl = document.createElement('h2');
   const imgEl = document.createElement('img');
   const addLink = document.createElement('a');
   const cartIcon = document.createElement('span');
@@ -139,9 +139,11 @@ function createPartEl(part_num, name, img_url, part_url) {
   imgDiv.classList.add('uk-card-media-top');
   bodyDiv.classList.add('uk-card-body');
   nameEl.classList.add('uk-card-title');
-  nameEl.classList.add('uk-position-relative');
+  nameEl.classList.add('uk-inline');
+  nameEl.classList.add('uk-width-1-1');
   priceEl.classList.add('uk-position-bottom');
   priceEl.classList.add('price');
+  priceEl.classList.add('uk-inline');
   imgEl.classList.add('uk-position-relative');
   imgDiv.appendChild(imgEl);
   partDiv.appendChild(imgDiv);
@@ -149,8 +151,9 @@ function createPartEl(part_num, name, img_url, part_url) {
   detailLink.classList.add('uk-button');
   detailLink.classList.add('uk-button-default');
   detailLink.classList.add('uk-button-small');
-  detailLink.classList.add('uk-position-relative');
+  detailLink.classList.add('uk-inline');
   detailLink.classList.add('part-detail');
+  detailLink.classList.add('uk-width-2-3');
   detailLink.href = part_url;
   detailLink.setAttribute('target', '_blank');
   detailLink.innerText = 'details';
@@ -161,8 +164,8 @@ function createPartEl(part_num, name, img_url, part_url) {
   addLink.innerText = '+ ';
   addLink.type = 'button';
   addLink.classList.add('uk-button');
-  addLink.classList.add('uk-button-danger');
-  addLink.classList.add('uk-position-absolute');
+  addLink.classList.add('uk-button-primary');
+  addLink.classList.add('uk-inline');
   addLink.classList.add('uk-position-bottom-right');
   addLink.classList.add('uk-height-1-2');
   addLink.classList.add('uk-margin-bottom');
