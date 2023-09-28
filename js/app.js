@@ -26,13 +26,17 @@ let page = '1';
 let loggedIn;
 
 if (sessionStorage.getItem('logged_in')) {
-  loggedIn = sessionStorage.getItem('logged_in');
+  loggedIn = sessionStorage.getItem('loggedIn');
 } else {
-  sessionStorage.setItem('logged_in', 0);
+  sessionStorage.setItem('loggedIn', false);
 }
 
 window.onload = () => {
   const parts_list = document.getElementById('parts_list');
+  if (!loggedIn) {
+    const loggedModal = UIkit.modal('#logged-modal');
+    // loggedModal.show();
+  }
 };
 
 async function getParts(url = '') {
