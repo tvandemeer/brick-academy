@@ -10,9 +10,10 @@ const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
 const cssnano = require('gulp-cssnano');
 const concat = require('gulp-concat');
+const terser = require('gulp-terser');
 
-const srcJsFiles = ['./src/js/app.js', './src/js/navbar.js', './src/js/login.js', './src/js/deprecated.js'];
-const siteJsFiles = ['./site/js/app.js', './site/js/navbar.js', './site/js/login.js', './site/js/deprecated.js'];
+const srcJsFiles = ['./src/js/app.js', './src/js/navbar.js', './src/js/login.js', './src/js/partslist.js', './src/js/deprecated.js'];
+const siteJsFiles = ['./site/js/app.js', './site/js/navbar.js', './site/js/login.js', './site/js/partslist.js', './site/js/deprecated.js'];
 
 function syncBrowser () {
     browserSync.init({
@@ -24,7 +25,7 @@ function syncBrowser () {
 
     gulp.watch("./src/css/app.css", lintStyles);
     gulp.watch(srcJsFiles, copyJs);
-    gulp.watch(siteJsFiles, lintJs);
+    //gulp.watch(siteJsFiles, lintJs);
     gulp.watch("./src/*.html").on("change", copyHtml);
     gulp.watch("./site/*.html").on("change", browserSync.reload);
     gulp.watch("./site/js/*.min.js").on("change", concatJs);
@@ -32,7 +33,8 @@ function syncBrowser () {
 
 function copyJs () {
     return gulp.src(srcJsFiles)
-        .pipe(gulp.dest("./site/js"));
+        .pipe(gulp.dest("./site/js"))
+        .pipe(browserSync.stream());
 }
 
 function lintJs () {
@@ -42,7 +44,8 @@ function lintJs () {
         .pipe(eslintNew.format())
         //.pipe(eslintNew.failAfterError())
         //.pipe(gulp.dest("./site/js"))
-        .pipe(uglify())
+        //.pipe(uglify())
+        .pipe(terser())
         .pipe(rename({
             extname: ".min.js"
         }))
