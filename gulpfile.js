@@ -10,6 +10,9 @@ const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
 const cssnano = require('gulp-cssnano');
 
+const srcJsFiles = ['./src/js/app.js', './src/js/navbar.js', './src/js/deprecated.js'];
+const siteJsFiles = ['./site/js/app.js', './site/js/navbar.js', './site/js/deprecated.js'];
+
 function syncBrowser () {
     browserSync.init({
         server: {
@@ -19,19 +22,19 @@ function syncBrowser () {
     });
 
     gulp.watch("./src/css/app.css", lintStyles);
-    gulp.watch("./src/js/app.js", copyJs);
-    gulp.watch("./site/js/app.js", lintJs);
+    gulp.watch(srcJsFiles, copyJs);
+    gulp.watch(siteJsFiles, lintJs);
     gulp.watch("./src/*.html").on("change", copyHtml);
     gulp.watch("./site/*.html").on("change", browserSync.reload);
 }
 
 function copyJs () {
-    return gulp.src("./src/js/app.js")
+    return gulp.src(srcJsFiles)
         .pipe(gulp.dest("./site/js"));
 }
 
 function lintJs () {
-    return gulp.src("./site/js/app.js")
+    return gulp.src(siteJsFiles)
         .pipe(eslintNew({ fix: true }))
         .pipe(eslintNew.fix())
         .pipe(eslintNew.format())
