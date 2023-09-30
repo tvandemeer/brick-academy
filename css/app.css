@@ -41,3 +41,18 @@ div.uk-navbar-left > ul.uk-navbar-nav > li:nth-child(2) {
     right: -90%;
     bottom: 20px;
 }
+
+#form-login {
+    padding: 0 15px;
+}
+
+#login-info {
+    border: 1px solid #023E8A;
+    border-radius: 4px;
+    background-color: #CAF0F8;
+}
+
+#login-info p {
+    padding: 15px;
+    margin: 0;
+}
