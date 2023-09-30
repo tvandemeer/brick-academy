@@ -1,3 +1,6 @@
+// =======================
+// ONLY FOR DEVELOPMENT!!!
+// =======================
 const getUrl = 'https://rebrickable.com/api/v3/lego/parts/';
 const page_size = '20';
 let page = '1';
@@ -88,8 +91,12 @@ function createPartEl(part_num, name, img_url, part_url) {
   const partDiv = document.createElement('div');
   const imgDiv = document.createElement('div');
   const bodyDiv = document.createElement('div');
+  const nameDiv = document.createElement('div');
+  const detailsDiv = document.createElement('div');
+  const cartIconDiv = document.createElement('div');
   const nameEl = document.createElement('p');
-  const priceEl = document.createElement('h2');
+  const priceAddDiv = document.createElement('div');
+  const priceEl = document.createElement('span');
   const imgEl = document.createElement('img');
   const addLink = document.createElement('a');
   const cartIcon = document.createElement('span');
@@ -104,33 +111,35 @@ function createPartEl(part_num, name, img_url, part_url) {
     imgEl.src = 'img/geen_afbeelding.jpg';
   }
   wrapDiv.classList.add('part_wrap');
+  wrapDiv.classList.add('uk-flex');
   partDiv.classList.add('uk-card');
+  partDiv.classList.add('uk-flex');
+  partDiv.classList.add('uk-flex-column');
   partDiv.classList.add('uk-card-default');
   partDiv.classList.add('animate__animated');
   partDiv.classList.add('animate__fadeIn');
   partDiv.classList.add('animate__slow');
+  priceAddDiv.classList.add('uk-position-bottom');
   imgDiv.classList.add('uk-card-media-top');
   bodyDiv.classList.add('uk-card-body');
   nameEl.classList.add('uk-card-title');
-  nameEl.classList.add('uk-inline');
-  nameEl.classList.add('uk-width-1-1');
-  priceEl.classList.add('uk-position-bottom');
   priceEl.classList.add('price');
-  priceEl.classList.add('uk-inline');
-  imgEl.classList.add('uk-position-relative');
   imgDiv.appendChild(imgEl);
   partDiv.appendChild(imgDiv);
   nameEl.innerText = name;
+  nameDiv.appendChild(nameEl);
+  cartIconDiv.classList.add('uk-margin-bottom');
+  cartIconDiv.classList.add('uk-text-right');
   detailLink.classList.add('uk-button');
   detailLink.classList.add('uk-button-default');
   detailLink.classList.add('uk-button-small');
-  detailLink.classList.add('uk-inline');
+  priceAddDiv.classList.add('uk-text-right');
   detailLink.classList.add('part-detail');
-  detailLink.classList.add('uk-width-2-3');
   detailLink.href = part_url;
   detailLink.setAttribute('target', '_blank');
   detailLink.innerText = 'details';
   detailLink.appendChild(detailIcon);
+  detailsDiv.appendChild(detailLink);
   priceEl.innerText = `€${(Math.random() * 5).toFixed(2)}`;
   addLink.href = '#';
   addLink.innerText = '+ ';
@@ -138,22 +147,19 @@ function createPartEl(part_num, name, img_url, part_url) {
   addLink.setAttribute('data-part', part_num);
   addLink.classList.add('uk-button');
   addLink.classList.add('uk-button-primary');
-  addLink.classList.add('uk-inline');
-  addLink.classList.add('uk-position-bottom-right');
-  addLink.classList.add('uk-height-1-2');
+  addLink.classList.add('uk-button-primary');
   addLink.classList.add('uk-margin-bottom');
   addLink.classList.add('uk-margin-right');
   addLink.classList.add('uk-border-rounded');
   addLink.classList.add('add_button');
   addLink.classList.add('uk-button-small');
-  cartIcon.classList.add('uk-position-relative');
-  cartIcon.classList.add('part-cart');
-  cartIcon.classList.add('uk-width-1-1');
-  bodyDiv.appendChild(nameEl);
-  bodyDiv.appendChild(detailLink);
-  bodyDiv.appendChild(priceEl);
-  bodyDiv.appendChild(addLink);
-  bodyDiv.appendChild(cartIcon);
+  priceAddDiv.appendChild(priceEl);
+  priceAddDiv.appendChild(addLink);
+  cartIconDiv.appendChild(cartIcon);
+  bodyDiv.appendChild(nameDiv);
+  bodyDiv.appendChild(detailsDiv);
+  bodyDiv.appendChild(cartIconDiv);
+  bodyDiv.appendChild(priceAddDiv);
   partDiv.appendChild(bodyDiv);
   wrapDiv.appendChild(partDiv);
   parts_list.appendChild(wrapDiv);
@@ -192,10 +198,10 @@ function addCartListeners() {
   const addButtons = document.querySelectorAll('.add_button');
   addButtons.forEach((btn) => {
     btn.addEventListener('click', ((event) => {
+      const nodes = event.target.parentNode.parentNode.childNodes;
       const part_num = event.target.dataset.part;
-      const siblings = event.target.parentNode.childNodes;
-      const naam = siblings[0].innerText;
-      const prijs = siblings[2].innerText.split('€')[1];
+      const naam = nodes[0].childNodes[0].innerText;
+      const prijs = nodes[3].childNodes[0].innerText;
       const artikel = new Artikel(part_num, naam, prijs);
       console.log(artikel);
     }));

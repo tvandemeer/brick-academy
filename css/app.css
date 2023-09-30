@@ -16,9 +16,10 @@ div.uk-navbar-left > ul.uk-navbar-nav > li:nth-child(2) {
 }
 
 .price {
-    left: 2rem;
     font-family: 'Passion One', cursive;
+    font-size: 2rem;
     color: #646464;
+    padding-right: 10px;
 }
 
 .uk-card-title {
@@ -27,19 +28,6 @@ div.uk-navbar-left > ul.uk-navbar-nav > li:nth-child(2) {
 
 .uk-card {
     border-radius: 1rem;
-}
-
-.uk-card-title {
-    bottom: 2rem;
-}
-
-.part-detail {
-    bottom: 2.5rem;
-}
-
-.part-cart {
-    right: -90%;
-    bottom: 20px;
 }
 
 #form-login {
@@ -54,5 +42,9 @@ div.uk-navbar-left > ul.uk-navbar-nav > li:nth-child(2) {
 
 #login-info p {
     padding: 15px;
+    margin: 0;
+}
+
+.add_button {
     margin: 0;
 }
