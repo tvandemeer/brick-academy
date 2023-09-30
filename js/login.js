@@ -1,14 +1,9 @@
 if (sessionStorage.getItem('loggedIn')) {
+  console.log('loggedIn item gevonden in sessionStorage:');
   console.log(sessionStorage.getItem('loggedIn'));
 } else {
-  UIkit.modal.prompt('Voor testdoeleinden vraag ik je een naam in te vullen. Om de code te kunnen testen, is het goed om bij elk bezoek dezelfde naam te gebruiken', '')
-    .then((res) => {
-      if (!res) {
-        window.location.reload();
-      } else {
-        sessionStorage.setItem('loggedIn', res);
-      }
-    });
+  console.log('Geen loggedItem in sessionStorage');
+  // window.location.replace('login.html');
 }
 
 if (localStorage.getItem('klanten')) {

@@ -20,3 +20,16 @@ getDetails(url = getUrl + part_nums)
       }
     });
   });
+
+if (sessionStorage.getItem('loggedIn')) {
+  console.log(sessionStorage.getItem('loggedIn'));
+} else {
+  UIkit.modal.prompt('Voor testdoeleinden vraag ik je een naam in te vullen. Om de code te kunnen testen, is het goed om bij elk bezoek dezelfde naam te gebruiken', '')
+    .then((res) => {
+      if (!res) {
+        window.location.reload();
+      } else {
+        sessionStorage.setItem('loggedIn', res);
+      }
+    });
+}

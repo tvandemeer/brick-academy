@@ -6,7 +6,6 @@ const sourcemaps = require('gulp-sourcemaps');
 const eslintNew = require('gulp-eslint-new');
 const validator = require('gulp-html');
 const styleLint = require('gulp-stylelint');
-const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
 const cssnano = require('gulp-cssnano');
 const concat = require('gulp-concat');
@@ -19,16 +18,15 @@ function syncBrowser () {
     browserSync.init({
         server: {
             baseDir: "./site"
-        },
-        watchEvents: ['change', 'add', 'addDir']
+        }
     });
 
     gulp.watch("./src/css/app.css", lintStyles);
     gulp.watch(srcJsFiles, copyJs);
-    //gulp.watch(siteJsFiles, lintJs);
+    gulp.watch(siteJsFiles, lintJs);
     gulp.watch("./src/*.html").on("change", copyHtml);
     gulp.watch("./site/*.html").on("change", browserSync.reload);
-    gulp.watch("./site/js/*.min.js").on("change", concatJs);
+    //gulp.watch("./site/js/*.min.js").on("change", concatJs);
 }
 
 function copyJs () {
@@ -44,7 +42,6 @@ function lintJs () {
         .pipe(eslintNew.format())
         //.pipe(eslintNew.failAfterError())
         //.pipe(gulp.dest("./site/js"))
-        //.pipe(uglify())
         .pipe(terser())
         .pipe(rename({
             extname: ".min.js"
