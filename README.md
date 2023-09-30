@@ -67,3 +67,4 @@ In je project moet duidelijk zijn dat je minstens de volgende technieken kan toe
 
 - [UIkit](https://getuikit.com)
 - [Animate.css](https://animate.style)
+- [sweetalert2](https://sweetalert2.github.io)

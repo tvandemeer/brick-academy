@@ -22,20 +22,47 @@ loginButton.addEventListener('click', (event) => {
   console.log(`naam: ${naam}`);
   console.log(`admin: ${admin}`);
   if (naam) {
-    const loggedIn = true;
-    klant = new Klant(`klant_${naam}`, naam, admin, loggedIn);
-    console.log(klant);
-    // localStorage.setItem(klant.klant_id, JSON.stringify(klant));
-    mandje = new Mandje(`mandje_${naam}`, klant.klant_id);
-    console.log(mandje);
-    // localStorage.setItem(mandje.mandje_id, JSON.stringify(mandje));
+    if (localStorage.getItem(`klant_${naam}`)) {
+      const klant = JSON.parse(localStorage.getItem(`klant_${naam}`));
+      klant.admin = admin;
+      klant.logged_in = true;
+      localStorage.setItem(klant.klant_id, JSON.stringify(klant));
+      const live_klant = klant;
+      sessionStorage.setItem('live_klant', JSON.stringify(live_klant));
+      console.log('klant gevonden in localStorage');
+    } else {
+      const klant = createKlant(naam, admin);
+      console.log(klant);
+      const live_klant = klant;
+      sessionStorage.setItem('live_klant', JSON.stringify(live_klant));
+    }
     Swal.fire({
       title: `Hallo ${naam}!`,
       icon: 'success',
       text: 'je bent ingelogd',
-      toast: true,
       timer: 2000,
+      timerProgressBar: true,
+    });
+  } else {
+    Swal.fire({
+      title: 'Vul een naam in',
+      icon: 'warning',
+      timer: 1500,
       timerProgressBar: true,
     });
   }
 });
+
+function createKlant(naam, is_admin) {
+  const logged_in = true;
+  const klant = new Klant(`klant_${naam}`, naam, is_admin, logged_in);
+  localStorage.setItem(klant.klant_id, JSON.stringify(klant));
+  console.log('klant created');
+  return klant;
+}
+
+function createMandje(klant_id) {
+  // mandje = new Mandje('mandje_' + naam, klant.klant_id);
+  // console.log(mandje);
+  // localStorage.setItem(mandje.mandje_id, JSON.stringify(mandje));
+}

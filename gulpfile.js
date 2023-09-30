@@ -12,8 +12,8 @@ const concat = require('gulp-concat');
 const terser = require('gulp-terser');
 const uglify = require('gulp-uglify');
 
-const srcJsFiles = ['./src/js/app.js', './src/js/navbar.js', './src/js/login.js', './src/js/partslist.js', './src/js/formlogin.js', './src/js/deprecated.js'];
-const siteJsFiles = ['./site/js/app.js', './site/js/navbar.js', './site/js/login.js', './site/js/partslist.js', './site/js/formlogin.js', './site/js/deprecated.js'];
+const srcJsFiles = ['./src/js/app.js', './src/js/navbar.js', './src/js/login.js', './src/js/partslist.js', './src/js/formlogin.js', './src/js/deprecated.js', './src/js/dev_partslist.js'];
+const siteJsFiles = ['./site/js/app.js', './site/js/navbar.js', './site/js/login.js', './site/js/partslist.js', './site/js/formlogin.js', './site/js/deprecated.js', './site/js/dev_partslist.js'];
 
 function syncBrowser () {
     browserSync.init({
