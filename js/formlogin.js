@@ -25,9 +25,17 @@ loginButton.addEventListener('click', (event) => {
     const loggedIn = true;
     klant = new Klant(`klant_${naam}`, naam, admin, loggedIn);
     console.log(klant);
-    // localStorage.setItem(klant.klant_id, klant);
+    // localStorage.setItem(klant.klant_id, JSON.stringify(klant));
     mandje = new Mandje(`mandje_${naam}`, klant.klant_id);
     console.log(mandje);
-    // localStorage.setItem(mandje.mandje_id, mandje);
+    // localStorage.setItem(mandje.mandje_id, JSON.stringify(mandje));
+    Swal.fire({
+      title: `Hallo ${naam}!`,
+      icon: 'success',
+      text: 'je bent ingelogd',
+      toast: true,
+      timer: 2000,
+      timerProgressBar: true,
+    });
   }
 });
