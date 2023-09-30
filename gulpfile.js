@@ -75,13 +75,8 @@ function html () {
         .pipe(gulp.dest("./site"));
 }
 
-function copyGulpfile () {
-    return gulp.src("./gulpfile.js")
-        .pipe(gulp.dest("./site"));
-}
-
-function copyMd () {
-    return gulp.src("./src/*.md")
+function copyDevFiles () {
+    return gulp.src(["./package.json", "./gulpfile.js", "./src/README.md"])
         .pipe(gulp.dest("./site"));
 }
 
@@ -98,6 +93,5 @@ exports.lintJs = lintJs;
 exports.lintStyles = lintStyles;
 exports.copyHtml = copyHtml;
 exports.copyJs = copyJs;
-exports.copyGulpfile = copyGulpfile;
-exports.copyMd = copyMd;
+exports.copyDevFiles = copyDevFiles;
 exports.concatJs = concatJs;
