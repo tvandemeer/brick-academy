@@ -10,9 +10,10 @@ const rename = require('gulp-rename');
 const cssnano = require('gulp-cssnano');
 const concat = require('gulp-concat');
 const terser = require('gulp-terser');
+const uglify = require('gulp-uglify');
 
-const srcJsFiles = ['./src/js/app.js', './src/js/navbar.js', './src/js/login.js', './src/js/partslist.js', './src/js/deprecated.js'];
-const siteJsFiles = ['./site/js/app.js', './site/js/navbar.js', './site/js/login.js', './site/js/partslist.js', './site/js/deprecated.js'];
+const srcJsFiles = ['./src/js/app.js', './src/js/navbar.js', './src/js/login.js', './src/js/partslist.js', './src/js/formlogin.js', './src/js/deprecated.js'];
+const siteJsFiles = ['./site/js/app.js', './site/js/navbar.js', './site/js/login.js', './site/js/partslist.js', './site/js/formlogin.js', './site/js/deprecated.js'];
 
 function syncBrowser () {
     browserSync.init({
@@ -42,7 +43,8 @@ function lintJs () {
         .pipe(eslintNew.format())
         //.pipe(eslintNew.failAfterError())
         //.pipe(gulp.dest("./site/js"))
-        .pipe(terser())
+        //.pipe(terser())
+        .pipe(uglify())
         .pipe(rename({
             extname: ".min.js"
         }))
