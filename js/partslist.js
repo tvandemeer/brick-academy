@@ -242,7 +242,7 @@ function addCartListeners() {
   const addButtons = document.querySelectorAll('.add-button');
   addButtons.forEach((btn) => {
     btn.addEventListener('click', ((event) => {
-      const live_klant = JSON.parse(sessionStorage.getItem('live_klant'));
+      live_klant = JSON.parse(sessionStorage.getItem('live_klant'));
       const mandjesObj = JSON.parse(localStorage.getItem('winkelmandjes'));
       const part_num = event.target.dataset.part;
       const { naam } = event.target.dataset;

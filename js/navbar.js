@@ -1,5 +1,18 @@
 const curPage = window.location.pathname;
 
+const { Swal } = window;
+
+function showMessage(msgTitle, msgText, msgIcon) {
+  Swal.fire({
+    title: msgTitle,
+    text: msgText,
+    icon: msgIcon,
+    timer: 1500,
+    timerProgressBar: true,
+    showConfirmButton: false,
+  });
+}
+
 switch (curPage) {
   case '/index.html':
     const indexLinks = document.querySelectorAll('.link-index');
@@ -38,13 +51,6 @@ if (sessionStorage.getItem('live_klant')) {
   userLinks.forEach((link) => {
     link.style.color = '#0F7AE5';
   });
-  const logInUitLinks = document.querySelectorAll('[href="login.html"]');
-  logInUitLinks.forEach((link) => {
-    link.innerText = 'Log uit';
-    link.addEventListener('click', ((event) => {
-      sessionStorage.removeItem('live_klant');
-    }));
-  });
   const live_klant = JSON.parse(sessionStorage.getItem('live_klant'));
   if (live_klant.admin) {
     const adminLinks = document.querySelectorAll('.link-admin');
@@ -52,4 +58,13 @@ if (sessionStorage.getItem('live_klant')) {
       link.style.color = 'red';
     });
   }
+  const logInUitLinks = document.querySelectorAll('[href="login.html"]');
+  logInUitLinks.forEach((link) => {
+    link.innerText = 'Log uit';
+    link.style.color = 'red';
+    link.addEventListener('click', ((event) => {
+      sessionStorage.removeItem('live_klant');
+      showMessage('Je bent uitgelogd', 'Tot ziens!', 'success');
+    }));
+  });
 }

@@ -1,3 +1,5 @@
+const { Swal } = window;
+
 function showMessage(msgText, msgIcon) {
   Swal.fire({
     text: msgText,
