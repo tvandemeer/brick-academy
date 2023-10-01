@@ -62,6 +62,10 @@ loginButton.addEventListener('click', (event) => {
       timer: 2000,
       timerProgressBar: true,
     });
+    const userLinks = document.querySelectorAll('.link-user');
+    userLinks.forEach((link) => {
+      link.style.color = '#0F7AE5';
+    });
   } else {
     Swal.fire({
       title: 'Vul een naam in',
