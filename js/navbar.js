@@ -38,4 +38,15 @@ if (sessionStorage.getItem('live_klant')) {
   userLinks.forEach((link) => {
     link.style.color = '#0F7AE5';
   });
+  const logInUitLinks = document.querySelectorAll('[href="login.html"]');
+  logInUitLinks.forEach((link) => {
+    link.innerText = 'Log uit';
+  });
+  const live_klant = JSON.parse(sessionStorage.getItem('live_klant'));
+  if (live_klant.admin) {
+    const adminLinks = document.querySelectorAll('.link-admin');
+    adminLinks.forEach((link) => {
+      link.style.color = 'red';
+    });
+  }
 }
