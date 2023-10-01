@@ -5,6 +5,14 @@ class Mandje {
   }
 }
 
+class Artikel {
+  constructor(part_num, naam, prijs) {
+    this.part_num = part_num;
+    this.naam = naam;
+    this.prijs = prijs;
+  }
+}
+
 const getUrl = 'https://rebrickable.com/api/v3/lego/parts/';
 const page_size = '20';
 let page = '1';
@@ -234,11 +242,16 @@ function addCartListeners() {
   const addButtons = document.querySelectorAll('.add-button');
   addButtons.forEach((btn) => {
     btn.addEventListener('click', ((event) => {
+      const live_klant = JSON.parse(sessionStorage.getItem('live_klant'));
+      const mandjesObj = JSON.parse(localStorage.getItem('winkelmandjes'));
       const part_num = event.target.dataset.part;
       const { naam } = event.target.dataset;
       const { prijs } = event.target.dataset;
       const artikel = new Artikel(part_num, naam, prijs);
       console.log(artikel);
+      mandjesObj[live_klant.naam].artikelen.push(artikel);
+      localStorage.setItem('winkelmandjes', JSON.stringify(mandjesObj));
+      console.log('Artikel toegevoegd aan mandje');
     }));
   });
 }
