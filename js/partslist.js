@@ -1,9 +1,42 @@
-// =======================
-// ONLY FOR DEVELOPMENT!!!
-// =======================
+class Mandje {
+  constructor(klant) {
+    this.klant = klant;
+    this.artikelen = [];
+  }
+}
+
 const getUrl = 'https://rebrickable.com/api/v3/lego/parts/';
 const page_size = '20';
 let page = '1';
+
+if (!localStorage.getItem('winkelmandjes')) {
+  const winkelmandjes = {};
+  localStorage.setItem('winkelmandjes', JSON.stringify(winkelmandjes));
+  console.log(JSON.parse(localStorage.getItem('winkelmandjes')));
+}
+
+let live_klant;
+
+if (sessionStorage.getItem('live_klant')) {
+  console.log('Ingelogde klant');
+  live_klant = JSON.parse(sessionStorage.getItem('live_klant'));
+} else {
+  console.log('Geen klant ingelogd');
+}
+
+console.log(live_klant);
+
+const mandjes = JSON.parse(localStorage.getItem('winkelmandjes'));
+
+if (mandjes[live_klant.naam]) {
+  console.log('Klant heeft een mandje');
+} else {
+  console.log('Klant heeft nog geen mandje');
+  const mandje = new Mandje(live_klant.naam);
+  mandjes[live_klant.naam] = mandje;
+  localStorage.setItem('winkelmandjes', JSON.stringify(mandjes));
+  console.log('Mandje gemaakt voor klant');
+}
 
 window.onload = () => {
   const parts_list = document.getElementById('parts_list');
@@ -25,7 +58,7 @@ getParts(url = `${getUrl}?page=${page}&page_size=${page_size}`)
   });
 
 function createPartsList(data) {
-  sessionStorage.setItem('parts', JSON.stringify(data));
+  // sessionStorage.setItem('parts', JSON.stringify(data));
   data.results.forEach((item) => {
     createPartEl(item.part_num, item.name, item.part_img_url, item.part_url);
   });

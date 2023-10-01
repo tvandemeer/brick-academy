@@ -2,13 +2,13 @@ function showMessage(msgText, msgIcon) {
   Swal.fire({
     text: msgText,
     icon: msgIcon,
-    timer: 2000,
+    timer: 1500,
     timerProgressBar: true,
   });
 }
 
 if (!sessionStorage.getItem('live_klant')) {
-  showMessage('Je moet ingelogd zijn als admin!', 'warning');
+  showMessage('Je moet ingelogd zijn als admin!', 'error');
 } else {
   console.log('ingelogde klant gevonden');
   const klant = JSON.parse(sessionStorage.getItem('live_klant'));

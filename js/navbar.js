@@ -41,6 +41,9 @@ if (sessionStorage.getItem('live_klant')) {
   const logInUitLinks = document.querySelectorAll('[href="login.html"]');
   logInUitLinks.forEach((link) => {
     link.innerText = 'Log uit';
+    link.addEventListener('click', ((event) => {
+      sessionStorage.removeItem('live_klant');
+    }));
   });
   const live_klant = JSON.parse(sessionStorage.getItem('live_klant'));
   if (live_klant.admin) {
