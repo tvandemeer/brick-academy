@@ -140,18 +140,21 @@ function createPartEl(part_num, name, img_url, part_url) {
   detailLink.innerText = 'details';
   detailLink.appendChild(detailIcon);
   detailsDiv.appendChild(detailLink);
-  priceEl.innerText = `€${(Math.random() * 5).toFixed(2)}`;
+  const prijs = (Math.random() * 5).toFixed(2);
+  priceEl.innerText = `€${prijs.toString()}`;
   addLink.href = '#';
   addLink.innerText = '+ ';
   addLink.type = 'button';
   addLink.setAttribute('data-part', part_num);
+  addLink.setAttribute('data-naam', name);
+  addLink.setAttribute('data-prijs', prijs);
   addLink.classList.add('uk-button');
   addLink.classList.add('uk-button-primary');
   addLink.classList.add('uk-button-primary');
   addLink.classList.add('uk-margin-bottom');
   addLink.classList.add('uk-margin-right');
   addLink.classList.add('uk-border-rounded');
-  addLink.classList.add('add_button');
+  addLink.classList.add('add-button');
   addLink.classList.add('uk-button-small');
   priceAddDiv.appendChild(priceEl);
   priceAddDiv.appendChild(addLink);
@@ -195,13 +198,12 @@ function pagesNavListeners() {
 }
 
 function addCartListeners() {
-  const addButtons = document.querySelectorAll('.add_button');
+  const addButtons = document.querySelectorAll('.add-button');
   addButtons.forEach((btn) => {
     btn.addEventListener('click', ((event) => {
-      const nodes = event.target.parentNode.parentNode.childNodes;
       const part_num = event.target.dataset.part;
-      const naam = nodes[0].childNodes[0].innerText;
-      const prijs = nodes[3].childNodes[0].innerText;
+      const { naam } = event.target.dataset;
+      const { prijs } = event.target.dataset;
       const artikel = new Artikel(part_num, naam, prijs);
       console.log(artikel);
     }));

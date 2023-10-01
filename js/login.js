@@ -19,3 +19,10 @@ if (localStorage.getItem('winkelmandjes')) {
   const winkelmandjes = [];
   localStorage.setItem('winkelmandjes', JSON.stringify(winkelmandjes));
 }
+
+if (localStorage.getItem('artikelen')) {
+  const artikelen = JSON.parse(localStorage.getItem('artikelen'));
+} else {
+  const artikelen = [];
+  localStorage.setItem('artikelen', JSON.stringify(artikelen));
+}

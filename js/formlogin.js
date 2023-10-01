@@ -14,6 +14,25 @@ class Mandje {
   }
 }
 
+if (localStorage.getItem('klanten')) {
+  const klanten = JSON.parse(localStorage.getItem('klanten'));
+  console.log(`klanten: ${klanten}`);
+} else {
+  console.log('geen klanten array in localStorage');
+}
+if (localStorage.getItem('winkelmandjes')) {
+  const winkelmandjes = JSON.parse(localStorage.getItem('winkelmandjes'));
+  console.log(`winkelmandjes: ${winkelmandjes}`);
+} else {
+  console.log('geen winkemandjes array in localStorage');
+}
+if (localStorage.getItem('artikelen')) {
+  const artikelen = JSON.parse(localStorage.getItem('artikelen'));
+  console.log(`artikelen: ${artikelen}`);
+} else {
+  console.log('geen artikelen array in localStorage');
+}
+
 const loginButton = document.getElementById('button-login');
 loginButton.addEventListener('click', (event) => {
   event.preventDefault();
