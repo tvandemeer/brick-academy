@@ -36,14 +36,16 @@ console.log(live_klant);
 
 const mandjes = JSON.parse(localStorage.getItem('winkelmandjes'));
 
-if (mandjes[live_klant.naam]) {
-  console.log('Klant heeft een mandje');
-} else {
-  console.log('Klant heeft nog geen mandje');
-  const mandje = new Mandje(live_klant.naam);
-  mandjes[live_klant.naam] = mandje;
-  localStorage.setItem('winkelmandjes', JSON.stringify(mandjes));
-  console.log('Mandje gemaakt voor klant');
+if (live_klant) {
+  if (mandjes[live_klant.naam]) {
+    console.log('Klant heeft een mandje');
+  } else {
+    console.log('Klant heeft nog geen mandje');
+    const mandje = new Mandje(live_klant.naam);
+    mandjes[live_klant.naam] = mandje;
+    localStorage.setItem('winkelmandjes', JSON.stringify(mandjes));
+    console.log('Mandje gemaakt voor klant');
+  }
 }
 
 window.onload = () => {

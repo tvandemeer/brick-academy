@@ -62,9 +62,5 @@ if (sessionStorage.getItem('live_klant')) {
   logInUitLinks.forEach((link) => {
     link.innerText = 'Log uit';
     link.style.color = 'red';
-    link.addEventListener('click', ((event) => {
-      sessionStorage.removeItem('live_klant');
-      showMessage('Je bent uitgelogd', 'Tot ziens!', 'success');
-    }));
   });
 }

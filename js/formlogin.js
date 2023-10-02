@@ -62,7 +62,10 @@ loginButton.addEventListener('click', (event) => {
           link.innerText = 'Log uit';
           link.style.color = 'red';
           link.addEventListener('click', ((event) => {
+            event.preventDefault();
             sessionStorage.removeItem('live_klant');
+            link.innerText = 'Log in';
+            link.style.color = 'black';
             showMessage('Je bent uitgelogd', 'Tot ziens!', 'success');
           }));
         });

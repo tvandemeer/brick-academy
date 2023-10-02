@@ -1,5 +1,3 @@
-const { Swal } = window;
-
 function showMessage(msgText, msgIcon) {
   Swal.fire({
     text: msgText,
@@ -9,6 +7,24 @@ function showMessage(msgText, msgIcon) {
   });
 }
 
+function createAdminPage() {
+  let klanten;
+  let mandjes;
+
+  if (localStorage.getItem('klanten')) {
+    klanten = JSON.parse(localStorage.getItem('klanten'));
+    console.log('klanten in localStorage');
+  }
+
+  if (localStorage.getItem('winkelmandjes')) {
+    mandjes = JSON.parse(localStorage.getItem('winkelmandjes'));
+    console.log('mandjes in localStorage');
+  }
+
+  console.log(klanten);
+  console.log(mandjes);
+}
+
 if (!sessionStorage.getItem('live_klant')) {
   showMessage('Je moet ingelogd zijn als admin!', 'error');
 } else {
@@ -16,7 +32,11 @@ if (!sessionStorage.getItem('live_klant')) {
   const klant = JSON.parse(sessionStorage.getItem('live_klant'));
   if (!klant.admin) {
     showMessage('Alleen toegankelijk voor admins!', 'error');
-  } else {
-    showMessage(`Welkom ${klant.naam}!`, 'success');
+  } else if (klant.admin) {
+    if (!sessionStorage.getItem('greeted')) {
+      showMessage(`Welkom ${klant.naam}!`, 'success');
+      sessionStorage.setItem('greeted', 1);
+    }
+    createAdminPage();
   }
 }
