@@ -6,11 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brick Academy - Home</title>
     <link rel="stylesheet" href="css/uikit/uikit.min.css">
-    <link rel="stylesheet" href="css/app.min.css">
+    <link rel="stylesheet" href="css/app.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <script src="js/uikit/uikit.min.js"></script>
     <script src="js/uikit/uikit-icons.min.js"></script>
-    <!--<script src="js/app.min.js"></script>-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Passion+One:wght@700&display=swap" rel="stylesheet">
@@ -23,17 +22,17 @@
                 <div class="uk-navbar-left">
                     <ul class="uk-navbar-nav">
                         <li>
-                            <a href="#"><img src="img/brick.png" class="uk-width-1-3 uk-height-max-small" alt="Lego brick"></a>
+                            <a href="index.html"><img src="img/brick.png" class="uk-width-1-3 uk-height-max-small" alt="Lego brick"></a>
                         </li>
                         <li class="link-index">
-                            <a href="#">Brick Academy</a>
+                            <a href="index.html">Brick Academy</a>
                         </li>
                     </ul>
                 </div>
                 <div class="uk-navbar-right">
                     <ul class="uk-navbar-nav uk-visible@s">
                         <li>
-                            <a href="#">
+                            <a href="">
                                 <input class="uk-input" type="text" placeholder="werkt (nog) niet">
                                 <button class="uk-button uk-button-default">Zoeken</button>
                             </a>
@@ -45,14 +44,15 @@
                             <a href="contact.html">Contact</a>
                         </li>
                         <li>
-                            <a href="#"><span class="link-admin" uk-icon="icon: star"></span></a>
+                            <a href=""><span class="link-admin" uk-icon="icon: star"></span></a>
                         </li>
                         <li>
-                            <a href="#"><span class="link-user" uk-icon="icon: user"></span><span uk-navbar-parent-icon></span></a>
+                            <a href=""><span class="link-user" uk-icon="icon: user"></span><span uk-navbar-parent-icon></span></a>
                             <div class="uk-navbar-dropdown">
                                 <ul class="uk-nav uk-navbar-dropdown-nav">
-                                    <li><a href="login.html">Log in</a></li>
-                                    <li><a href="admin.html">Admin dashboard</a></li>
+                                    <li class="user-login"><a href="login.html">Log in</a></li>
+                                    <li class="user-logout uk-hidden"><a href="logout.html">Log uit</a></li>
+                                    <li class="user-admin uk-hidden"><a href="admin.html">Admin dashboard</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -60,7 +60,7 @@
                             <a href="https://github.com/tvandemeer/tvandemeer.github.io"><span uk-icon="icon: github" class="animate__animated animate__flash animate__slower animate__infinite"></span></a>
                         </li>
                     </ul>
-                    <a href="#" class="uk-navbar-toggle uk-hidden@s" uk-navbar-toggle-icon uk-toggle="target: #sidenav"></a>
+                    <a href="" class="uk-navbar-toggle uk-hidden@s" uk-navbar-toggle-icon uk-toggle="target: #sidenav"></a>
                 </div>
             </div>
         </div>
@@ -71,7 +71,7 @@
             <button class="uk-offcanvas-close" type="button" uk-close></button>
             <ul class="uk-nav">
                 <li class="uk-margin-top">
-                    <a href="#">
+                    <a href="">
                         <input class="uk-input" type="text" placeholder="werkt (nog) niet">
                         <span uk-icon="icon: search"></span>
                     </a>
@@ -83,14 +83,15 @@
                     <a href="contact.html">Contact</a>
                 </li>
                 <li>
-                    <a href="#"><span class="link-admin" uk-icon="icon: star"></span></a>
+                    <a href=""><span class="link-admin" uk-icon="icon: star"></span></a>
                 </li>
                 <li>
-                    <a href="#"><span class="link-user" uk-icon="icon: user"></span><span uk-navbar-parent-icon></span></a>
+                    <a href=""><span class="link-user" uk-icon="icon: user"></span><span uk-navbar-parent-icon></span></a>
                     <div class="uk-navbar-dropdown">
                         <ul class="uk-nav uk-navbar-dropdown-nav">
-                            <li><a href="login.html">Log in</a></li>
-                            <li><a href="admin.html">Admin dashboard</a></li>
+                            <li class="user-login"><a href="login.html">Log in</a></li>
+                            <li class="user-logout uk-hidden"><a href="logout.html">Log uit</a></li>
+                            <li class="user-admin uk-hidden"><a href="admin.html">Admin dashboard</a></li>
                         </ul>
                     </div>
                 </li>
@@ -103,7 +104,7 @@
                         
     <div class="uk-container">
 
-        <div uk-slideshow="autoplay: true; autoplay-interval: 5000; max-height: 300">
+        <div uk-slideshow="ratio: 4:1; autoplay: true; autoplay-interval: 5000; max-height: 300" class="animate__animated animate__zoomIn">
             <ul class="uk-slideshow-items">
                 <li>
                     <img src="img/lego1.jpg">
@@ -127,11 +128,9 @@
         </div>
 
     </div>
-
-    <script src='js/swal2/sweetalert2.all.min.js'></script>
-    <script src='js/partslist.min.js'></script>
-    <script src='js/navbar.min.js'></script>
-    <!--<script src='js/login.min.js'></script>-->
+    
+    <script src="./js/swal2/sweetalert2.all.min.js"></script>
+    <script type="module" src="js/index.js"></script>
 
 </body>
 </html>

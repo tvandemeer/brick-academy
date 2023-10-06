@@ -1,42 +1,21 @@
-function showMessage(msgText, msgIcon) {
-  Swal.fire({
-    text: msgText,
-    icon: msgIcon,
-    timer: 1500,
-    timerProgressBar: true,
-  });
-}
+import { updateNavbar } from './navbar.js';
+import { getLiveKlant } from './storageItems.js';
+import { showMessage } from './notify.js';
+import { populateSelect } from './adminUi.js';
 
-function createAdminPage() {
-  let klanten;
-  let mandjes;
+updateNavbar();
 
-  if (localStorage.getItem('klanten')) {
-    klanten = JSON.parse(localStorage.getItem('klanten'));
-    console.log('klanten in localStorage');
+const live_klant = getLiveKlant();
+
+if (!live_klant) {
+  showMessage('Niet ingelogd', 'Je moet ingelogd zijn als admin!', 'warning');
+} else if (live_klant && !live_klant.admin) {
+  showMessage('Geen admin', 'Je hebt geen admin rechten!', 'error');
+} else if (live_klant && live_klant.admin) {
+  if (!JSON.parse(sessionStorage.getItem('admin-greet'))) {
+    sessionStorage.setItem('admin-greet', 1);
+    showMessage(`Welkom ${live_klant.naam}!`, 'Gebruik je admin rechten met zorg :)', 'success');
   }
 
-  if (localStorage.getItem('winkelmandjes')) {
-    mandjes = JSON.parse(localStorage.getItem('winkelmandjes'));
-    console.log('mandjes in localStorage');
-  }
-
-  console.log(klanten);
-  console.log(mandjes);
-}
-
-if (!sessionStorage.getItem('live_klant')) {
-  showMessage('Je moet ingelogd zijn als admin!', 'error');
-} else {
-  console.log('ingelogde klant gevonden');
-  const klant = JSON.parse(sessionStorage.getItem('live_klant'));
-  if (!klant.admin) {
-    showMessage('Alleen toegankelijk voor admins!', 'error');
-  } else if (klant.admin) {
-    if (!sessionStorage.getItem('greeted')) {
-      showMessage(`Welkom ${klant.naam}!`, 'success');
-      sessionStorage.setItem('greeted', 1);
-    }
-    createAdminPage();
-  }
+  populateSelect();
 }

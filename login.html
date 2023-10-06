@@ -6,11 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brick Academy - Login</title>
     <link rel="stylesheet" href="css/uikit/uikit.min.css">
-    <link rel="stylesheet" href="css/app.min.css">
+    <link rel="stylesheet" href="css/app.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <script src="js/uikit/uikit.min.js"></script>
     <script src="js/uikit/uikit-icons.min.js"></script>
-    <!--<script src="js/app.min.js"></script>-->
 </head>
 <body>
 
@@ -35,10 +34,10 @@
                                 <button class="uk-button uk-button-default">Zoeken</button>
                             </a>
                         </li>
-                        <li class="link-winkelmandje">
+                        <li class='link-winkelmandje'>
                             <a href="winkelmandje.html">Winkelmandje&nbsp;<span uk-icon="icon: cart"></span><span class="uk-badge badge-count">0</span></a>
                         </li>
-                        <li class="link-contact">
+                        <li class='link-contact'>
                             <a href="contact.html">Contact</a>
                         </li>
                         <li>
@@ -48,8 +47,9 @@
                             <a href="#"><span class="link-user" uk-icon="icon: user"></span><span uk-navbar-parent-icon></span></a>
                             <div class="uk-navbar-dropdown">
                                 <ul class="uk-nav uk-navbar-dropdown-nav">
-                                    <li><a href="login.html">Log in</a></li>
-                                    <li><a href="admin.html">Admin dashboard</a></li>
+                                    <li class="user-login"><a href="login.html">Log in</a></li>
+                                    <li class="user-logout uk-hidden"><a href="logout.html">Log uit</a></li>
+                                    <li class="user-admin uk-hidden"><a href="admin.html">Admin dashboard</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -86,8 +86,9 @@
                     <a href="#"><span class="link-user" uk-icon="icon: user"></span><span uk-navbar-parent-icon></span></a>
                     <div class="uk-navbar-dropdown">
                         <ul class="uk-nav uk-navbar-dropdown-nav">
-                            <li><a href="login.html">Log in</a></li>
-                            <li><a href="admin.html">Admin dashboard</a></li>
+                            <li class="user-login"><a href="login.html">Log in</a></li>
+                            <li class="user-logout uk-hidden"><a href="logout.html">Log uit</a></li>
+                            <li class="user-admin uk-hidden"><a href="admin.html">Admin dashboard</a></li>
                         </ul>
                     </div>
                 </li>
@@ -130,10 +131,8 @@
 
     </div>
  
-    <script src='js/swal2/sweetalert2.all.min.js'></script>
-    <!--<script src='js/login.min.js'></script>-->
-    <script src='js/navbar.min.js'></script>
-    <script type="module" src='js/formlogin.min.js'></script>
+    <script src="./js/swal2/sweetalert2.all.min.js"></script>
+    <script type="module" src='js/login.js'></script>
 
 </body>
 </html>

@@ -1,28 +1,30 @@
-// if (sessionStorage.getItem('loggedIn')) {
-// console.log('loggedIn item gevonden in sessionStorage:');
-// console.log(sessionStorage.getItem('loggedIn'));
-// } else {
-// console.log('Geen loggedItem in sessionStorage');
-/// /window.location.replace('login.html');
-// }
+import { getLiveKlant } from './storageItems.js';
+import { updateNavbar } from './navbar.js';
+import { showMessage } from './notify.js';
+import { klantLogin } from './statusChange.js';
 
-// if (localStorage.getItem('klanten')) {
-// let klanten = JSON.parse(localStorage.getItem('klanten'));
-// } else {
-// let klanten = [];
-// localStorage.setItem('klanten', JSON.stringify(klanten));
-// }
+const live_klant = getLiveKlant();
 
-// if (localStorage.getItem('winkelmandjes')) {
-// let winkelmandjes = JSON.parse(localStorage.getItem('winkelmandjes'));
-// } else {
-// let winkelmandjes = [];
-// localStorage.setItem('winkelmandjes', JSON.stringify(winkelmandjes));
-// }
+updateNavbar();
 
-// if (localStorage.getItem('artikelen')) {
-// let artikelen = JSON.parse(localStorage.getItem('artikelen'));
-// } else {
-// let artikelen = [];
-// localStorage.setItem('artikelen', JSON.stringify(artikelen));
-// }
+const loginButton = document.getElementById('button-login');
+loginButton.addEventListener('click', (event) => {
+  event.preventDefault();
+  const naam = document.getElementById('input-naam').value;
+  if (naam) {
+    const loginCode = klantLogin(naam);
+    if (loginCode === 1) {
+      updateNavbar();
+      showMessage(`Welkom terug, ${naam}!`, 'Je bent ingelogd', 'success');
+    } else if (loginCode === 2) {
+      showMessage('Al ingelogd', 'Je bent al ingelogd!', 'info');
+    } else if (loginCode === 3) {
+      showMessage('Actieve login', 'Er is al iemand ingelogd', 'info');
+    } else if (loginCode === 4) {
+      updateNavbar();
+      showMessage(`Welkom ${naam}!`, 'Je bent ingelogd', 'success');
+    }
+  } else {
+    showMessage('Naam vereist', 'Vul een naam in!', 'warning');
+  }
+});

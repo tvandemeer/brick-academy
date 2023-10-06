@@ -5,55 +5,54 @@ const autoprefixer = require('autoprefixer');
 const sourcemaps = require('gulp-sourcemaps');
 const eslintNew = require('gulp-eslint-new');
 const validator = require('gulp-html');
-const styleLint = require('gulp-stylelint');
 const rename = require('gulp-rename');
 const cssnano = require('gulp-cssnano');
 const concat = require('gulp-concat');
-const terser = require('gulp-terser');
 const uglify = require('gulp-uglify');
 
-const srcJsFiles = ['./src/js/app.js', './src/js/navbar.js', './src/js/login.js', './src/js/partslist.js', './src/js/formlogin.js', './src/js/deprecated.js', './src/js/dev_partslist.js'];
-const siteJsFiles = ['./site/js/app.js', './site/js/navbar.js', './site/js/login.js', './site/js/partslist.js', './site/js/formlogin.js', './site/js/deprecated.js', './site/js/dev_partslist.js'];
 
-function syncBrowser () {
+function serve () {
     browserSync.init({
         server: {
             baseDir: "./site"
         }
     });
 
-    gulp.watch("./src/css/app.css", lintStyles);
-    gulp.watch(srcJsFiles, copyJs);
-    gulp.watch(siteJsFiles, lintJs);
+    gulp.watch("./src/css/app.css", copyStyles);
+    gulp.watch("./site/css/app.css", lintStyles);
+    gulp.watch("./src/js/*.js", copyJs);
+    gulp.watch("./site/js/*.js", lintJs);
     gulp.watch("./src/*.html").on("change", copyHtml);
     gulp.watch("./site/*.html").on("change", browserSync.reload);
-    //gulp.watch("./site/js/*.min.js").on("change", concatJs);
 }
 
 function copyJs () {
-    return gulp.src(srcJsFiles)
-        .pipe(gulp.dest("./site/js"))
-        .pipe(browserSync.stream());
+    return gulp.src("./src/js/*.js")
+        .pipe(gulp.dest("./site/js"));
 }
 
 function lintJs () {
-    return gulp.src(siteJsFiles)
+    return gulp.src("./site/js/*.js")
         .pipe(eslintNew({ fix: true }))
         .pipe(eslintNew.fix())
         .pipe(eslintNew.format())
         //.pipe(eslintNew.failAfterError())
-        //.pipe(gulp.dest("./site/js"))
-        //.pipe(terser())
+        .pipe(gulp.dest("./site/js"))
         .pipe(uglify())
         .pipe(rename({
             extname: ".min.js"
         }))
-        .pipe(gulp.dest("./site/js"))
+        .pipe(gulp.dest("./site/js/minified"))
         .pipe(browserSync.stream());
 }
 
-function lintStyles () {
+function copyStyles () {
     return gulp.src("./src/css/app.css")
+        .pipe(gulp.dest("./site/css"));
+}
+
+function lintStyles () {
+    return gulp.src("./site/css/app.css")
         .pipe(sourcemaps.init())
         .pipe(postcss([ autoprefixer() ]))
         .pipe(gulp.dest("./site/css"))
@@ -72,7 +71,7 @@ function copyHtml () {
 }
 
 function html () {
-    return gulp.src("./src/*.html")
+    return gulp.src("./site/*.html")
         .pipe(validator())
         .pipe(gulp.dest("./site"));
 }
@@ -83,13 +82,18 @@ function copyDevFiles () {
 }
 
 function concatJs () {
-    return gulp.src("./site/js/*.min.js")
-        .pipe(concat("all.min.js"))
-        .pipe(gulp.dest("./site/js"));
+    return gulp.src("./site/js/*.js")
+        .pipe(concat("all.js"))
+        .pipe(gulp.dest("./site/js"))
+        .pipe(uglify())
+        .pipe(rename({
+            extname: ".min.js"
+        }))
+        .pipe(gulp.dest("./site/js/minified"));
 }
 
 
-exports.syncBrowser = syncBrowser;
+exports.serve = serve;
 exports.html = html;
 exports.lintJs = lintJs;
 exports.lintStyles = lintStyles;
@@ -97,3 +101,4 @@ exports.copyHtml = copyHtml;
 exports.copyJs = copyJs;
 exports.copyDevFiles = copyDevFiles;
 exports.concatJs = concatJs;
+exports.copyStyles = copyStyles;
