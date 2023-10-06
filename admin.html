@@ -100,48 +100,48 @@
     </div>
                         
     <div class="uk-container uk-margin-top">
-    <div uk-grid>
-        <div class="uk-width-1-4@l">
-            <div id="select-div">
-                <form>
-                    <legend class="uk-legend">Selecteer een klant:</legend>
-                    <div class="uk-margin">
-                        <select class="uk-select" id="select-element">
-                        </select>
-                    </div>
-                </form>
+        <div uk-grid>
+            <div class="uk-width-1-4@l">
+                <div id="select-div">
+                    <form>
+                        <legend class="uk-legend">Selecteer een klant:</legend>
+                        <div class="uk-margin">
+                            <select class="uk-select" id="select-element">
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div id="klant-delete-div">
+                    <button id="delete-klant-btn" class="uk-button uk-button-danger" type="button">Verwijder klant</button>
+                </div>
             </div>
-            <div id="klant-delete-div">
-                <button id="delete-klant-btn" class="uk-button uk-button-danger" type="button">Verwijder klant</button>
-            </div>
-        </div>
-        <div class="uk-width-3-4@l">
-            <div id="results-table-div">
-                <div uk-grid>
-                    <div class="uk-width-1-2@l">
-                        <legend class="uk-legend">Artikelen in mandje</legend>
-                    </div>
-                    <div id="mandje-delete-div" class="uk-width-1-2@l uk-text-right">
-                        <button id="delete-mandje-btn" class="uk-button uk-button-danger" type="button">Verwijder mandje</button>
-                    </div>
-                    <div class="uk-width-1-1">
-                        <table class="uk-table uk-table-striped" id="results-table">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Naam</th>
-                                    <th>Prijs</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody id="results-table-body">
-                            </tbody>
-                        </table>
+            <div class="uk-width-3-4@l">
+                <div id="results-table-div">
+                    <div uk-grid>
+                        <div class="uk-width-1-2@l">
+                            <legend class="uk-legend">Artikelen in mandje</legend>
+                        </div>
+                        <div id="mandje-delete-div" class="uk-width-1-2@l uk-text-right">
+                            <button id="delete-mandje-btn" class="uk-button uk-button-danger" type="button">Verwijder mandje</button>
+                        </div>
+                        <div class="uk-width-1-1">
+                            <table class="uk-table uk-table-striped" id="results-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Naam</th>
+                                        <th>Prijs</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="results-table-body">
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 
     <script src='js/swal2/sweetalert2.all.min.js'></script>

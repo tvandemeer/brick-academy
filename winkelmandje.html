@@ -68,26 +68,27 @@
             <button class="uk-offcanvas-close" type="button" uk-close></button>
             <ul class="uk-nav">
                 <li class="uk-margin-top">
-                    <a href="#">
+                    <a href="">
                         <input class="uk-input" type="text" placeholder="werkt (nog) niet">
                         <span uk-icon="icon: search"></span>
                     </a>
                 </li>
                 <li class="link-winkelmandje">
-                    <a href="#">Winkelmandje&nbsp;<span uk-icon="icon: cart"></span><span class="uk-badge badge-count">0</span></a>
+                    <a href="winkelmandje.html">Winkelmandje&nbsp;<span uk-icon="icon: cart"></span><span class="uk-badge badge-count">0</span></a>
                 </li>
                 <li class="link-contact">
                     <a href="contact.html">Contact</a>
                 </li>
                 <li>
-                    <a href="#"><span class="link-admin" uk-icon="icon: star"></span></a>
+                    <a href=""><span class="link-admin" uk-icon="icon: star"></span></a>
                 </li>
                 <li>
-                    <a href="#"><span class="link-user" uk-icon="icon: user"></span><span uk-navbar-parent-icon></span></a>
+                    <a href=""><span class="link-user" uk-icon="icon: user"></span><span uk-navbar-parent-icon></span></a>
                     <div class="uk-navbar-dropdown">
                         <ul class="uk-nav uk-navbar-dropdown-nav">
-                            <li><a href="login.html">Log in</a></li>
-                            <li><a href="admin.html">Admin dashboard</a></li>
+                            <li class="user-login"><a href="login.html">Log in</a></li>
+                            <li class="user-logout uk-hidden"><a href="logout.html">Log uit</a></li>
+                            <li class="user-admin uk-hidden"><a href="admin.html">Admin dashboard</a></li>
                         </ul>
                     </div>
                 </li>
@@ -98,9 +99,23 @@
         </div>
     </div>
                         
-    <div class="uk-container">
+    <div class="uk-flex uk-flex-center">
 
-        <h1>Winkelmandje</h1>
+            <div class="uk-width-1-2">
+                <legend class="uk-legend uk-margin-top">De inhoud van je winkelmandje</legend>
+                <table class="uk-table uk-table-striped" id="results-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Naam</th>
+                            <th>Prijs</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="results-table-body">
+                    </tbody>
+                </table>
+            </div>
 
     </div>
  
