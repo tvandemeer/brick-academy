@@ -15,7 +15,6 @@ div.uk-navbar-left > ul.uk-navbar-nav > li:nth-child(2) {
     font-family: 'Passion One', cursive;
     font-size: 2rem;
     color: #646464;
-    /*padding-right: 10px;*/
 }
 
 .uk-card-title {
@@ -39,10 +38,6 @@ div.uk-navbar-left > ul.uk-navbar-nav > li:nth-child(2) {
 #login-info p {
     padding: 15px;
     margin: 0;
-}
-
-.add_button {
-    /*margin: 0;*/
 }
 
 .uk-navbar-dropdown {

@@ -19,7 +19,7 @@ export function getMandjes() {
 }
 
 export function getLiveKlant() {
-  const live_klant = JSON.parse(sessionStorage.getItem('live_klant'));
+    let live_klant = JSON.parse(sessionStorage.getItem('live_klant'));
 
-  return live_klant;
+    return live_klant;
 }

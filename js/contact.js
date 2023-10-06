@@ -1,3 +1,3 @@
-import { updateNavbar } from './navbar.js';
+import { updateNavbar } from "./navbar.js";
 
 updateNavbar();
