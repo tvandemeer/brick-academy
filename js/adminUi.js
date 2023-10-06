@@ -17,9 +17,9 @@ function deleteMandje(event) {
     const klant = event.target.dataset.klant;
     let mandjes = getMandjes();
     if (mandjes[klant]) {
-        console.log('Verwijder mandje van ' + klant);
+        confirmDeleteMandje(klant, 'Weet je het zeker?', 'De actie kan niet ongedaan gemaakt worden', 'warning');
     } else {
-        console.log('Klant heeft geen mandje');
+        showMessage('Geen mandje', 'Deze klant heeft geen mandje', 'error');
     }
 }
 
