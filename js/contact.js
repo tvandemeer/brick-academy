@@ -1,5 +1,6 @@
 import { updateNavbar } from "./navbar.js";
 import { getLiveKlant, getBerichten } from "./storageItems.js";
+import { plaatsBericht } from "./klantUi.js";
 
 updateNavbar();
 
@@ -10,6 +11,8 @@ const formBericht = document.getElementById('form-bericht');
 const noUser = document.getElementById('no-user');
 
 if (live_klant) {
+    document.getElementById('button-bericht')
+        .addEventListener('click', plaatsBericht);
     if (formBericht.classList.contains('uk-hidden')) {
         formBericht.classList.remove('uk-hidden');
     }

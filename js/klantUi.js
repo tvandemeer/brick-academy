@@ -1,7 +1,8 @@
 const Swal = window.Swal;
-import { getMandjes, getLiveKlant } from "./storageItems.js";
+import { getKlanten, getMandjes, getLiveKlant, getBerichten } from "./storageItems.js";
 import { updateNavbar } from "./navbar.js";
-import { showToast } from "./notify.js";
+import { showMessage, showToast } from "./notify.js";
+import { Bericht } from "./classes.js";
 
 function deleteArtikel(event) {
     const klant = event.target.dataset.klant;
@@ -78,5 +79,36 @@ export function populateResults() {
         tableRow.appendChild(naamCel);
         tableRow.appendChild(prijsCel);
         results.appendChild(tableRow);
+    }
+}
+
+function validateEmail(email) {
+  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+}
+
+export function plaatsBericht(event) {
+    event.preventDefault();
+    const nick = document.getElementById('input-nick').value;
+    const email = document.getElementById('input-email').value;
+    const bericht = document.getElementById('input-bericht').value;
+    if (!nick || !email || !bericht) {
+        showMessage('Ontbrekende gegevens', 'Vul alle velden in!', 'error');
+    } else if (!validateEmail(email)) {
+        console.log('email not valid');
+        showMessage('Email niet geldig', 'Vul een geldig email-adres in!', 'error');
+    } else {
+        const klanten = getKlanten();
+        let berichten = getBerichten();
+        const live_klant = getLiveKlant();
+        const klant = klanten[live_klant.naam];
+        const datetime = new Date();
+        const nieuwBericht = new Bericht(datetime, klant, nick, bericht);
+        berichten.push(nieuwBericht);
+        localStorage.setItem('berichten', JSON.stringify(berichten));
+        document.getElementById('input-nick').value = '';
+        document.getElementById('input-email').value = '';
+        document.getElementById('input-bericht').value = '';
+        showMessage('Bericht geplaatst', 'Bedankt voor het plaatsen van een bericht', 'success');
     }
 }
