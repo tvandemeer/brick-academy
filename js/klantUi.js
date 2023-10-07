@@ -36,7 +36,6 @@ export function populateResults() {
             node.remove();
         });
     }
-    //const klant = event.target.value;
     const klant = getLiveKlant().naam;
     if (mandjes[klant] && mandjes[klant].artikelen.length) {
         const artikelen = mandjes[klant].artikelen;
@@ -87,6 +86,50 @@ function validateEmail(email) {
   return re.test(String(email).toLowerCase());
 }
 
+function createBericht(bericht) {
+    const berichtenLijst = document.getElementById('berichten-lijst');
+    const berichtDiv = document.createElement('div');
+    berichtDiv.style.backgroundColor = '#FFFEE0';
+    berichtDiv.style.padding = '15px';
+    berichtDiv.style.marginBottom = '15px';
+    berichtDiv.style.borderRadius = '8px';
+    berichtDiv.style.border = '1px solid gray';
+    berichtDiv.classList.add('bericht');
+    berichtDiv.classList.add('uk-box-shadow-medium');
+    const headerDiv = document.createElement('div');
+    headerDiv.classList.add('uk-grid');
+
+    const nickDiv = document.createElement('div');
+    nickDiv.classList.add('uk-width-1-2');
+    const nickEl = document.createElement('p');
+    nickEl.innerText = bericht.nickname;
+    nickDiv.appendChild(nickEl);
+    headerDiv.appendChild(nickDiv);
+
+    const dtDiv = document.createElement('div');
+    dtDiv.classList.add('uk-width-1-2');
+    const dtEl = document.createElement('p');
+    dtEl.innerText = bericht.date + ' ' + bericht.time;
+    dtDiv.appendChild(dtEl);
+    headerDiv.appendChild(dtDiv);
+
+    berichtDiv.appendChild(headerDiv);
+
+    const titelDiv = document.createElement('div');
+    const titelEl = document.createElement('h4');
+    titelEl.innerText = bericht.titel;
+    titelDiv.appendChild(titelEl);
+    berichtDiv.appendChild(titelDiv);
+
+    const textDiv = document.createElement('div');
+    const textEl = document.createElement('p');
+    textEl.innerText = bericht.text;
+    textDiv.appendChild(textEl);
+    berichtDiv.appendChild(textDiv);
+
+    berichtenLijst.appendChild(berichtDiv);
+}
+
 export function plaatsBericht(event) {
     event.preventDefault();
     const nick = document.getElementById('input-nick').value;
@@ -111,7 +154,10 @@ export function plaatsBericht(event) {
         localStorage.setItem('berichten', JSON.stringify(berichten));
         document.getElementById('input-nick').value = '';
         document.getElementById('input-email').value = '';
+        document.getElementById('input-titel').value = '';
         document.getElementById('input-bericht').value = '';
+        document.getElementById('berichten-lijst').innerHTML = '';
+        listBerichten();
         showMessage('Bericht geplaatst', 'Bedankt voor het plaatsen van een bericht', 'success');
     }
 }
@@ -120,49 +166,9 @@ export function listBerichten () {
     const berichtenLijst = document.getElementById('berichten-lijst');
     const berichten = getBerichten();
     if (berichten.length) {
-        //berichten.forEach((bericht) => {
         for (let i = berichten.length - 1; i >= 0; i--) {
-            const berichtDiv = document.createElement('div');
-            berichtDiv.style.backgroundColor = '#FFFEE0';
-            berichtDiv.style.padding = '15px';
-            berichtDiv.style.marginBottom = '15px';
-            berichtDiv.style.borderRadius = '8px';
-            berichtDiv.style.border = '1px solid gray';
-            berichtDiv.classList.add('bericht');
-            const headerDiv = document.createElement('div');
-            headerDiv.classList.add('uk-grid');
-
-            const nickDiv = document.createElement('div');
-            nickDiv.classList.add('uk-width-1-2');
-            const nickEl = document.createElement('p');
-            nickEl.innerText = berichten[i].nickname;
-            nickDiv.appendChild(nickEl);
-            headerDiv.appendChild(nickDiv);
-
-            const dtDiv = document.createElement('div');
-            dtDiv.classList.add('uk-width-1-2');
-            const dtEl = document.createElement('p');
-            dtEl.innerText = berichten[i].date + ' ' + berichten[i].time;
-            dtDiv.appendChild(dtEl);
-            headerDiv.appendChild(dtDiv);
-
-            berichtDiv.appendChild(headerDiv);
-
-            const titelDiv = document.createElement('div');
-            const titelEl = document.createElement('h3');
-            titelEl.innerText = berichten[i].titel;
-            titelDiv.appendChild(titelEl);
-            berichtDiv.appendChild(titelDiv);
-
-            const textDiv = document.createElement('div');
-            const textEl = document.createElement('p');
-            textEl.innerText = berichten[i].text;
-            textDiv.appendChild(textEl);
-            berichtDiv.appendChild(textDiv);
-
-            berichtenLijst.appendChild(berichtDiv);
+            createBericht(berichten[i]);
         }
-        //});
     } else {
         console.log('Geen berichten');
     }
