@@ -7,7 +7,6 @@ const eslintNew = require('gulp-eslint-new');
 const validator = require('gulp-html');
 const rename = require('gulp-rename');
 const cssnano = require('gulp-cssnano');
-const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
 
 
@@ -79,17 +78,6 @@ function copyDevFiles () {
         .pipe(gulp.dest("./site"));
 }
 
-function concatJs () {
-    return gulp.src("./site/js/*.js")
-        .pipe(concat("all.js"))
-        .pipe(gulp.dest("./site/js"))
-        .pipe(uglify())
-        .pipe(rename({
-            extname: ".min.js"
-        }))
-        .pipe(gulp.dest("./site/js/minified"));
-}
-
 
 exports.serve = serve;
 exports.html = html;
@@ -98,5 +86,4 @@ exports.lintStyles = lintStyles;
 exports.copyHtml = copyHtml;
 exports.copyJs = copyJs;
 exports.copyDevFiles = copyDevFiles;
-exports.concatJs = concatJs;
 exports.copyStyles = copyStyles;
