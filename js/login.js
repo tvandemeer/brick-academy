@@ -10,12 +10,16 @@ updateNavbar();
 const loginButton = document.getElementById('button-login');
 loginButton.addEventListener('click', (event) => {
     event.preventDefault();
-    const naam = document.getElementById('input-naam').value;
-    const newUser = document.getElementById('check-new').checked;
+    let newUser = document.getElementById('check-new').checked;
+    let naam = document.getElementById('input-naam').value;
+    let admin = document.getElementById('check-admin').checked;
     const klanten = getKlanten();
     console.log(newUser);
     if (naam) {
         if (newUser && klanten[naam]) {
+            document.getElementById('check-new').checked = false;
+            document.getElementById('input-naam').value = '';
+            document.getElementById('check-admin').checked = false;
             showMessage('Al in gebruik!', 'Deze naam is al in gebruik, kies een andere naam', 'error');
         } else {
             let loginCode = klantLogin(naam);
@@ -32,6 +36,8 @@ loginButton.addEventListener('click', (event) => {
             }
         }
     } else {
+        document.getElementById('check-new').checked = false;
+        document.getElementById('check-admin').checked = false;
         showMessage('Naam vereist', 'Vul een naam in!', 'warning');
     }
 });
