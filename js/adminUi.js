@@ -41,6 +41,22 @@ function deleteArtikel(event) {
         }
         updateNavbar();
         showToast('Verwijderd', deleted[0].naam, 'success');
+        if (mandje.artikelen.length === 0) {
+            console.log('Geen artikelen meer');
+            const tableRow = document.createElement('tr');
+            const idCel = document.createElement('td');
+            const naamCel = document.createElement('td');
+            const prijsCel = document.createElement('td');
+            idCel.innerText = '---';
+            naamCel.innerText = 'Geen artikelen in mandje';
+            prijsCel.innerText = '---';
+            tableRow.appendChild(idCel);
+            tableRow.appendChild(naamCel);
+            tableRow.appendChild(prijsCel);
+            document.getElementById('results-table-body')
+                .appendChild(tableRow);
+            //results.appendChild(tableRow);
+        }
     } else {
         console.log('Er ging iets mis, maar weet nog niet wat');
     }
@@ -57,7 +73,9 @@ function populateResults(event) {
     }
     const klant = event.target.value;
     if (klant != 'selecteer klant ...') {
-        if (mandjes[klant] && mandjes[klant].artikelen.length) {
+        if (mandjes[klant] && mandjes[klant].artikelen.length > 0) {
+            document.getElementById('delete-mandje-btn')
+                .style.backgroundColor = '#F0506E';
             const artikelen = mandjes[klant].artikelen;
             for (let i = 0; i < artikelen.length; i++) {
                 const tableRow = document.createElement('tr');
@@ -86,7 +104,9 @@ function populateResults(event) {
                 tableRow.appendChild(buttonCel);
                 results.appendChild(tableRow);
             }
-        } else {
+        } else if (mandjes[klant] && mandjes[klant].artikelen.length === 0) {
+            document.getElementById('delete-mandje-btn')
+                .style.backgroundColor = '#F0506E';
             const tableRow = document.createElement('tr');
             const idCel = document.createElement('td');
             const naamCel = document.createElement('td');
@@ -98,6 +118,20 @@ function populateResults(event) {
             tableRow.appendChild(naamCel);
             tableRow.appendChild(prijsCel);
             results.appendChild(tableRow);
+        } else {
+            const tableRow = document.createElement('tr');
+            const idCel = document.createElement('td');
+            const naamCel = document.createElement('td');
+            const prijsCel = document.createElement('td');
+            idCel.innerText = '---';
+            naamCel.innerText = 'Deze klant heeft geen mandje';
+            prijsCel.innerText = '---';
+            tableRow.appendChild(idCel);
+            tableRow.appendChild(naamCel);
+            tableRow.appendChild(prijsCel);
+            results.appendChild(tableRow);
+            document.getElementById('delete-mandje-btn')
+                .style.backgroundColor = '#888';
         }
         document.getElementById('delete-klant-btn')
             .setAttribute('data-klant', klant);
