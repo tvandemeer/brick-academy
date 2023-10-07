@@ -19,3 +19,12 @@ export class Artikel {
         this.prijs = prijs;
     }
 }
+
+export class Bericht {
+    constructor(datetime, klant, nickname, bericht) {
+        this.datetime = datetime;
+        this.klant = klant;
+        this.nickname = nickname;
+        this.bericht = bericht;
+    }
+}
