@@ -120,24 +120,29 @@ export function listBerichten () {
     const berichtenLijst = document.getElementById('berichten-lijst');
     const berichten = getBerichten();
     if (berichten.length) {
-        berichten.forEach((bericht) => {
+        //berichten.forEach((bericht) => {
+        for (let i = berichten.length - 1; i >= 0; i--) {
             const berichtDiv = document.createElement('div');
+            berichtDiv.style.backgroundColor = '#FFFEE0';
+            berichtDiv.style.padding = '15px';
+            berichtDiv.style.marginBottom = '15px';
+            berichtDiv.style.borderRadius = '8px';
+            berichtDiv.style.border = '1px solid gray';
             berichtDiv.classList.add('bericht');
             const headerDiv = document.createElement('div');
             headerDiv.classList.add('uk-grid');
-            headerDiv.classList.add('uk-card-header');
 
             const nickDiv = document.createElement('div');
             nickDiv.classList.add('uk-width-1-2');
             const nickEl = document.createElement('p');
-            nickEl.innerText = bericht.nickname;
+            nickEl.innerText = berichten[i].nickname;
             nickDiv.appendChild(nickEl);
             headerDiv.appendChild(nickDiv);
 
             const dtDiv = document.createElement('div');
             dtDiv.classList.add('uk-width-1-2');
             const dtEl = document.createElement('p');
-            dtEl.innerText = bericht.date + ' ' + bericht.time;
+            dtEl.innerText = berichten[i].date + ' ' + berichten[i].time;
             dtDiv.appendChild(dtEl);
             headerDiv.appendChild(dtDiv);
 
@@ -145,19 +150,19 @@ export function listBerichten () {
 
             const titelDiv = document.createElement('div');
             const titelEl = document.createElement('h3');
-            titelEl.classList.add('uk-card-title');
-            titelEl.innerText = bericht.titel;
+            titelEl.innerText = berichten[i].titel;
             titelDiv.appendChild(titelEl);
             berichtDiv.appendChild(titelDiv);
 
             const textDiv = document.createElement('div');
             const textEl = document.createElement('p');
-            textEl.innerText = bericht.text;
+            textEl.innerText = berichten[i].text;
             textDiv.appendChild(textEl);
             berichtDiv.appendChild(textDiv);
 
             berichtenLijst.appendChild(berichtDiv);
-        });
+        }
+        //});
     } else {
         console.log('Geen berichten');
     }

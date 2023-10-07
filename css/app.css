@@ -29,10 +29,11 @@ div.uk-navbar-left > ul.uk-navbar-nav > li:nth-child(2) {
     padding: 0 15px;
 }
 
-#login-info {
+#login-info, #no-user {
     border: 1px solid #023E8A;
     border-radius: 4px;
     background-color: #CAF0F8;
+    padding: 15px;
 }
 
 #login-info p {
