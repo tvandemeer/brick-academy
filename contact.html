@@ -106,7 +106,7 @@
         </div>
     </div>
 
-    <div class="uk-flex-center" uk-grid>
+    <div class="uk-flex-center uk-padding-small" uk-grid>
         <div class="uk-width-1-2@s uk-width-1-3@m uk-width-1-4@l">
             <form id="form-bericht">
                 <fieldset class="uk-fieldset uk-form-stacked">
@@ -124,6 +124,12 @@
                         </div>
                     </div>
                     <div class="uk-margin uk-width-1-1">
+                        <label for="input-titel" class="uk-form-label">Titel</label>
+                        <div class="uk-form-controls">
+                            <input id="input-titel" class="uk-input" type="text" placeholder="Titel" required>
+                        </div>
+                    </div>
+                    <div class="uk-margin uk-width-1-1">
                         <label for="input-bericht" class="uk-form-label">Bericht</label>
                         <div class="uk-form-controls">
                             <textarea class="uk-textarea" id="input-bericht" rows="5" placeholder="Je bericht ..." required></textarea>
@@ -135,9 +141,18 @@
                 </fieldset>
             </form>
         </div>
-
     </div>
- 
+
+    <div class="uk-flex-center" uk-grid>
+        <div class="uk-width-1-2@s uk-width-1-3@m uk-width-1-4@l">
+            <div>
+                <legend class="uk-legend uk-margin-medium-bottom">Berichten</legend>
+            </div>
+            <div id="berichten-lijst">
+            </div>
+        </div>
+    </div>
+
     <script src="./js/swal2/sweetalert2.all.min.js"></script>
     <script type="module" src="js/contact.js"></script>
     

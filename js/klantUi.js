@@ -91,8 +91,9 @@ export function plaatsBericht(event) {
     event.preventDefault();
     const nick = document.getElementById('input-nick').value;
     const email = document.getElementById('input-email').value;
+    const titel = document.getElementById('input-titel').value;
     const bericht = document.getElementById('input-bericht').value;
-    if (!nick || !email || !bericht) {
+    if (!nick || !email || !titel || !bericht) {
         showMessage('Ontbrekende gegevens', 'Vul alle velden in!', 'error');
     } else if (!validateEmail(email)) {
         console.log('email not valid');
@@ -103,12 +104,61 @@ export function plaatsBericht(event) {
         const live_klant = getLiveKlant();
         const klant = klanten[live_klant.naam];
         const datetime = new Date();
-        const nieuwBericht = new Bericht(datetime, klant, nick, bericht);
+        const date = datetime.toLocaleDateString();
+        const time = datetime.toLocaleTimeString();
+        const nieuwBericht = new Bericht(date, time, klant, nick, titel, bericht);
         berichten.push(nieuwBericht);
         localStorage.setItem('berichten', JSON.stringify(berichten));
         document.getElementById('input-nick').value = '';
         document.getElementById('input-email').value = '';
         document.getElementById('input-bericht').value = '';
         showMessage('Bericht geplaatst', 'Bedankt voor het plaatsen van een bericht', 'success');
+    }
+}
+
+export function listBerichten () {
+    const berichtenLijst = document.getElementById('berichten-lijst');
+    const berichten = getBerichten();
+    if (berichten.length) {
+        berichten.forEach((bericht) => {
+            const berichtDiv = document.createElement('div');
+            berichtDiv.classList.add('bericht');
+            const headerDiv = document.createElement('div');
+            headerDiv.classList.add('uk-grid');
+            headerDiv.classList.add('uk-card-header');
+
+            const nickDiv = document.createElement('div');
+            nickDiv.classList.add('uk-width-1-2');
+            const nickEl = document.createElement('p');
+            nickEl.innerText = bericht.nickname;
+            nickDiv.appendChild(nickEl);
+            headerDiv.appendChild(nickDiv);
+
+            const dtDiv = document.createElement('div');
+            dtDiv.classList.add('uk-width-1-2');
+            const dtEl = document.createElement('p');
+            dtEl.innerText = bericht.date + ' ' + bericht.time;
+            dtDiv.appendChild(dtEl);
+            headerDiv.appendChild(dtDiv);
+
+            berichtDiv.appendChild(headerDiv);
+
+            const titelDiv = document.createElement('div');
+            const titelEl = document.createElement('h3');
+            titelEl.classList.add('uk-card-title');
+            titelEl.innerText = bericht.titel;
+            titelDiv.appendChild(titelEl);
+            berichtDiv.appendChild(titelDiv);
+
+            const textDiv = document.createElement('div');
+            const textEl = document.createElement('p');
+            textEl.innerText = bericht.text;
+            textDiv.appendChild(textEl);
+            berichtDiv.appendChild(textDiv);
+
+            berichtenLijst.appendChild(berichtDiv);
+        });
+    } else {
+        console.log('Geen berichten');
     }
 }

@@ -19,16 +19,15 @@ function serve () {
     });
 
     gulp.watch("./src/css/app.css", copyStyles);
-    gulp.watch("./site/css/app.css", lintStyles);
     gulp.watch("./src/js/*.js", copyJs);
-    gulp.watch("./site/js/*.js", lintJs);
     gulp.watch("./src/*.html").on("change", copyHtml);
     gulp.watch("./site/*.html").on("change", browserSync.reload);
 }
 
 function copyJs () {
     return gulp.src("./src/js/*.js")
-        .pipe(gulp.dest("./site/js"));
+        .pipe(gulp.dest("./site/js"))
+        .pipe(browserSync.stream());
 }
 
 function lintJs () {
@@ -42,13 +41,13 @@ function lintJs () {
         .pipe(rename({
             extname: ".min.js"
         }))
-        .pipe(gulp.dest("./site/js/minified"))
-        .pipe(browserSync.stream());
+        .pipe(gulp.dest("./site/js/minified"));
 }
 
 function copyStyles () {
     return gulp.src("./src/css/app.css")
-        .pipe(gulp.dest("./site/css"));
+        .pipe(gulp.dest("./site/css"))
+        .pipe(browserSync.stream());
 }
 
 function lintStyles () {
@@ -61,8 +60,7 @@ function lintStyles () {
             extname: ".min.css"
         }))
         .pipe(sourcemaps.write("."))
-        .pipe(gulp.dest("./site/css"))
-        .pipe(browserSync.stream());
+        .pipe(gulp.dest("./site/css"));
 }
 
 function copyHtml () {

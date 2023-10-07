@@ -21,10 +21,12 @@ export class Artikel {
 }
 
 export class Bericht {
-    constructor(datetime, klant, nickname, bericht) {
-        this.datetime = datetime;
+    constructor(date, time, klant, nickname, titel, text) {
+        this.date = date;
+        this.time = time;
         this.klant = klant;
         this.nickname = nickname;
-        this.bericht = bericht;
+        this.titel = titel;
+        this.text = text;
     }
 }

@@ -1,6 +1,6 @@
 import { updateNavbar } from "./navbar.js";
 import { getLiveKlant, getBerichten } from "./storageItems.js";
-import { plaatsBericht } from "./klantUi.js";
+import { plaatsBericht, listBerichten } from "./klantUi.js";
 
 updateNavbar();
 
@@ -33,3 +33,5 @@ if (live_klant) {
     }
     console.log('Geen ingelogde klant');
 }
+
+listBerichten();
