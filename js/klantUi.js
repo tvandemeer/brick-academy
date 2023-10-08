@@ -3,6 +3,7 @@ import { getKlanten, getMandjes, getLiveKlant, getBerichten } from "./storageIte
 import { updateNavbar } from "./navbar.js";
 import { showMessage, showToast } from "./notify.js";
 import { Bericht } from "./classes.js";
+import { validateEmail } from "./validate.js";
 
 function deleteArtikel(event) {
     const klant = event.target.dataset.klant;
@@ -81,14 +82,26 @@ export function populateResults() {
     }
 }
 
-function validateEmail(email) {
-  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(String(email).toLowerCase());
+function deleteBericht(event) {
+    event.preventDefault();
+    let berichten = getBerichten();
+    const nodes = document.querySelectorAll('#berichten-lijst .bericht');
+    const berichtIndex = event.target.dataset.index;
+    const deleted = berichten.splice(berichtIndex, 1);
+    for (let i = 0; i < nodes.length; i++) {
+        if (nodes[i].dataset.index === berichtIndex) {
+            nodes[i].remove();
+        }
+    }
+    //localStorage.setItem('berichten', JSON.stringify(berichten));
+    console.log(deleted);
 }
 
-function createBericht(bericht) {
+function createBericht(bericht, i) {
+    const live_klant = getLiveKlant();
     const berichtenLijst = document.getElementById('berichten-lijst');
     const berichtDiv = document.createElement('div');
+    berichtDiv.setAttribute('data-index', i);
     berichtDiv.style.backgroundColor = '#FFFEE0';
     berichtDiv.style.padding = '15px';
     berichtDiv.style.marginBottom = '15px';
@@ -125,7 +138,20 @@ function createBericht(bericht) {
     const textEl = document.createElement('p');
     textEl.innerText = bericht.text;
     textDiv.appendChild(textEl);
+
     berichtDiv.appendChild(textDiv);
+
+    if (live_klant.admin) {
+        const adminDiv = document.createElement('div');
+        const adminLink = document.createElement('a');
+        adminLink.href = '';
+        adminLink.innerText = 'Verwijder bericht';
+        adminLink.setAttribute('data-index', i);
+        adminDiv.appendChild(adminLink);
+        adminLink.addEventListener('click', deleteBericht);
+
+        berichtDiv.appendChild(adminDiv);
+    }
 
     berichtenLijst.appendChild(berichtDiv);
 }
@@ -167,7 +193,7 @@ export function listBerichten () {
     const berichten = getBerichten();
     if (berichten.length) {
         for (let i = berichten.length - 1; i >= 0; i--) {
-            createBericht(berichten[i]);
+            createBericht(berichten[i], i);
         }
     } else {
         console.log('Geen berichten');
