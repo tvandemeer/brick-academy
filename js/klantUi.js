@@ -85,7 +85,7 @@ export function populateResults() {
 function deleteBericht(event) {
     event.preventDefault();
     let berichten = getBerichten();
-    const nodes = document.querySelectorAll('#berichten-lijst .bericht');
+    let nodes = document.querySelectorAll('#berichten-lijst .bericht');
     const berichtIndex = event.target.dataset.index;
     const deleted = berichten.splice(berichtIndex, 1);
     for (let i = 0; i < nodes.length; i++) {
@@ -93,8 +93,24 @@ function deleteBericht(event) {
             nodes[i].remove();
         }
     }
-    //localStorage.setItem('berichten', JSON.stringify(berichten));
-    console.log(deleted);
+    if (deleted[0]) {
+        nodes = document.querySelectorAll('#berichten-lijst .bericht');
+        const links = document.querySelectorAll('#berichten-lijst .delete-link');
+        for (let i = nodes.length - 1; i >= 0; i--) {
+            nodes[i].setAttribute('data-index', i);
+            links[i].setAttribute('data-index', i);
+        }
+    }
+    localStorage.setItem('berichten', JSON.stringify(berichten));
+    if (berichten.length === 0) {
+        const berichtenLijst = document.getElementById('berichten-lijst');
+        const noMsg = document.createElement('div');
+        const msgEl = document.createElement('h4');
+        msgEl.innerText = 'Er zijn nog geen berichten van klanten';
+        noMsg.appendChild(msgEl);
+        berichtenLijst.appendChild(noMsg);
+    }
+    showToast('Verwijderd', 'Het bericht is verwijderd', 'success');
 }
 
 function createBericht(bericht, i) {
@@ -144,6 +160,7 @@ function createBericht(bericht, i) {
     if (live_klant.admin) {
         const adminDiv = document.createElement('div');
         const adminLink = document.createElement('a');
+        adminLink.classList.add('delete-link');
         adminLink.href = '';
         adminLink.innerText = 'Verwijder bericht';
         adminLink.setAttribute('data-index', i);
@@ -165,7 +182,6 @@ export function plaatsBericht(event) {
     if (!nick || !email || !titel || !bericht) {
         showMessage('Ontbrekende gegevens', 'Vul alle velden in!', 'error');
     } else if (!validateEmail(email)) {
-        console.log('email not valid');
         showMessage('Email niet geldig', 'Vul een geldig email-adres in!', 'error');
     } else {
         const klanten = getKlanten();
@@ -196,6 +212,10 @@ export function listBerichten () {
             createBericht(berichten[i], i);
         }
     } else {
-        console.log('Geen berichten');
+        const noMsg = document.createElement('div');
+        const msgEl = document.createElement('h4');
+        msgEl.innerText = 'Er zijn nog geen berichten van klanten';
+        noMsg.appendChild(msgEl);
+        berichtenLijst.appendChild(noMsg);
     }
 }

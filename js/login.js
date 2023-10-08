@@ -14,7 +14,6 @@ loginButton.addEventListener('click', (event) => {
     let naam = document.getElementById('input-naam').value;
     let admin = document.getElementById('check-admin').checked;
     const klanten = getKlanten();
-    console.log(newUser);
     if (naam) {
         if (newUser && klanten[naam]) {
             document.getElementById('check-new').checked = false;
