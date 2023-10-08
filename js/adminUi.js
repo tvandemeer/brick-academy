@@ -41,7 +41,25 @@ function deleteArtikel(event) {
             deleteBtns[i].setAttribute('data-index', i);
             totaalPrijs += parseFloat(mandje.artikelen[i].prijs);
         }
-        console.log(totaalPrijs.toFixed(2));
+        if (document.getElementById('totaal')) {
+            document.getElementById('totaal').remove();
+        }
+        const deleteResults = document.getElementById('results-table-body');
+        const totaalRow = document.createElement('tr');
+        totaalRow.id = 'totaal';
+        const idCel = document.createElement('td');
+        const naamCel = document.createElement('td');
+        const prijsCel = document.createElement('td');
+        const buttonCel = document.createElement('td');
+        idCel.innerText = '';
+        naamCel.innerText = 'Totaalprijs';
+        prijsCel.innerText = '€' + (totaalPrijs.toFixed(2)).toString();
+        buttonCel.innerText = '';
+        totaalRow.appendChild(idCel);
+        totaalRow.appendChild(naamCel);
+        totaalRow.appendChild(prijsCel);
+        totaalRow.appendChild(buttonCel);
+        deleteResults.appendChild(totaalRow);
         updateNavbar();
         showToast('Verwijderd', deleted[0].naam, 'success');
         if (mandje.artikelen.length === 0) {
@@ -65,7 +83,7 @@ function deleteArtikel(event) {
 }
 
 function createRow(artikel, i, klant) {
-    const results = document.getElementById('results-table-body');
+    const createResults = document.getElementById('results-table-body');
     const tableRow = document.createElement('tr');
     tableRow.setAttribute('data-row', i);
     const idCel = document.createElement('td');
@@ -90,7 +108,7 @@ function createRow(artikel, i, klant) {
     tableRow.appendChild(naamCel);
     tableRow.appendChild(prijsCel);
     tableRow.appendChild(buttonCel);
-    results.appendChild(tableRow);
+    createResults.appendChild(tableRow);
 }
 
 function populateResults(event) {
@@ -114,8 +132,9 @@ function populateResults(event) {
                 totaalPrijs += parseFloat(artikelen[i].prijs);
 
             }
-            const results = document.getElementById('results-table-body');
+            const populateResults = document.getElementById('results-table-body');
             const totaalRow = document.createElement('tr');
+            totaalRow.id = 'totaal';
             const idCel = document.createElement('td');
             const naamCel = document.createElement('td');
             const prijsCel = document.createElement('td');
@@ -128,8 +147,9 @@ function populateResults(event) {
             totaalRow.appendChild(naamCel);
             totaalRow.appendChild(prijsCel);
             totaalRow.appendChild(buttonCel);
-            results.appendChild(totaalRow);
+            populateResults.appendChild(totaalRow);
         } else if (mandjes[klant] && mandjes[klant].artikelen.length === 0) {
+            const noArtResults = document.getElementById('results-table-body');
             document.getElementById('delete-mandje-btn')
                 .style.backgroundColor = '#F0506E';
             const tableRow = document.createElement('tr');
@@ -142,8 +162,9 @@ function populateResults(event) {
             tableRow.appendChild(idCel);
             tableRow.appendChild(naamCel);
             tableRow.appendChild(prijsCel);
-            results.appendChild(tableRow);
+            noArtResults.appendChild(tableRow);
         } else {
+            const noMandjeResults = document.getElementById('results-table-body');
             const tableRow = document.createElement('tr');
             const idCel = document.createElement('td');
             const naamCel = document.createElement('td');
@@ -154,7 +175,7 @@ function populateResults(event) {
             tableRow.appendChild(idCel);
             tableRow.appendChild(naamCel);
             tableRow.appendChild(prijsCel);
-            results.appendChild(tableRow);
+            noMandjeesults.appendChild(tableRow);
             document.getElementById('delete-mandje-btn')
                 .style.backgroundColor = '#888';
         }

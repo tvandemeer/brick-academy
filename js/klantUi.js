@@ -72,6 +72,7 @@ export function populateResults() {
         //console.log(totaalPrijs.toFixed(2));
         //const results = document.getElementById('results-table');
         const totaalRow = document.createElement('tr');
+        totaalRow.id='totaal';
         const idCel = document.createElement('td');
         const naamCel = document.createElement('td');
         const prijsCel = document.createElement('td');
