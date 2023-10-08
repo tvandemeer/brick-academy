@@ -84,7 +84,7 @@ function createRow(artikel, i, klant) {
     deleteBtn.addEventListener('click', deleteArtikel);
     idCel.innerText = artikel.id;
     naamCel.innerText = artikel.naam;
-    prijsCel.innerText = artikel.prijs;
+    prijsCel.innerText = '€' + artikel.prijs;
     buttonCel.appendChild(deleteBtn);
     tableRow.appendChild(idCel);
     tableRow.appendChild(naamCel);
@@ -114,6 +114,21 @@ function populateResults(event) {
                 totaalPrijs += parseFloat(artikelen[i].prijs);
 
             }
+            const results = document.getElementById('results-table-body');
+            const totaalRow = document.createElement('tr');
+            const idCel = document.createElement('td');
+            const naamCel = document.createElement('td');
+            const prijsCel = document.createElement('td');
+            const buttonCel = document.createElement('td');
+            idCel.innerText = '';
+            naamCel.innerText = 'Totaalprijs';
+            prijsCel.innerText = '€' + (totaalPrijs.toFixed(2)).toString();
+            buttonCel.innerText = '';
+            totaalRow.appendChild(idCel);
+            totaalRow.appendChild(naamCel);
+            totaalRow.appendChild(prijsCel);
+            totaalRow.appendChild(buttonCel);
+            results.appendChild(totaalRow);
         } else if (mandjes[klant] && mandjes[klant].artikelen.length === 0) {
             document.getElementById('delete-mandje-btn')
                 .style.backgroundColor = '#F0506E';

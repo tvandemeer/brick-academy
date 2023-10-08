@@ -40,6 +40,7 @@ export function populateResults() {
     const klant = getLiveKlant().naam;
     if (mandjes[klant] && mandjes[klant].artikelen.length) {
         const artikelen = mandjes[klant].artikelen;
+        let totaalPrijs = 0;
         for (let i = 0; i < artikelen.length; i++) {
             const tableRow = document.createElement('tr');
             tableRow.setAttribute('data-row', i);
@@ -59,7 +60,8 @@ export function populateResults() {
             deleteBtn.addEventListener('click', deleteArtikel);
             idCel.innerText = artikelen[i].id;
             naamCel.innerText = artikelen[i].naam;
-            prijsCel.innerText = artikelen[i].prijs;
+            prijsCel.innerText = '€' + artikelen[i].prijs;
+            totaalPrijs += parseFloat(artikelen[i].prijs);
             buttonCel.appendChild(deleteBtn);
             tableRow.appendChild(idCel);
             tableRow.appendChild(naamCel);
@@ -67,6 +69,22 @@ export function populateResults() {
             tableRow.appendChild(buttonCel);
             results.appendChild(tableRow);
         }
+        //console.log(totaalPrijs.toFixed(2));
+        //const results = document.getElementById('results-table');
+        const totaalRow = document.createElement('tr');
+        const idCel = document.createElement('td');
+        const naamCel = document.createElement('td');
+        const prijsCel = document.createElement('td');
+        const buttonCel = document.createElement('td');
+        idCel.innerText = '';
+        naamCel.innerText = 'Totaalprijs';
+        prijsCel.innerText = '€' + (totaalPrijs.toFixed(2)).toString();
+        buttonCel.innerText = '';
+        totaalRow.appendChild(idCel);
+        totaalRow.appendChild(naamCel);
+        totaalRow.appendChild(prijsCel);
+        totaalRow.appendChild(buttonCel);
+        results.appendChild(totaalRow);
     } else {
         const tableRow = document.createElement('tr');
         const idCel = document.createElement('td');
