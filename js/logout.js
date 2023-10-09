@@ -1,26 +1,26 @@
-import { updateNavbar } from "./navbar.js";
-import { showMessage } from "./notify.js";
+import { updateNavbar } from './navbar.js';
+import { showMessage } from './notify.js';
 
 if (sessionStorage.getItem('live_klant')) {
-    sessionStorage.removeItem('live_klant');
-    sessionStorage.removeItem('login-greet');
-    if (sessionStorage.getItem('admin-greet')) {
-        sessionStorage.removeItem('admin-greet');
-    }
+  sessionStorage.removeItem('live_klant');
+  sessionStorage.removeItem('login-greet');
+  if (sessionStorage.getItem('admin-greet')) {
+    sessionStorage.removeItem('admin-greet');
+  }
 
-    updateNavbar();
+  updateNavbar();
 
-    showMessage('Je bent uitgelogd', 'Tot ziens!', 'success');
+  showMessage('Je bent uitgelogd', 'Tot ziens!', 'success');
 
-    let byeDiv = document.getElementById('bye');
-    byeDiv.classList.add('uk-width-1-1@s');
-    byeDiv.classList.add('uk-width-1-2@m');
-    byeDiv.classList.add('uk-width-1-2@l');
+  const byeDiv = document.getElementById('bye');
+  byeDiv.classList.add('uk-width-1-1@s');
+  byeDiv.classList.add('uk-width-1-2@m');
+  byeDiv.classList.add('uk-width-1-2@l');
 
-    let byeImg = document.createElement('img');
-    byeImg.src = '../img/tot_ziens.png';
-    byeImg.classList.add('animate__animated');
-    byeImg.classList.add('animate__rotateIn');
+  const byeImg = document.createElement('img');
+  byeImg.src = '../img/tot_ziens.png';
+  byeImg.classList.add('animate__animated');
+  byeImg.classList.add('animate__rotateIn');
 
-    byeDiv.appendChild(byeImg);
+  byeDiv.appendChild(byeImg);
 }

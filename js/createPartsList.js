@@ -1,35 +1,35 @@
-import { getLiveKlant, getMandjes } from "./storageItems.js";
-import { Mandje, Artikel } from "./classes.js";
-import { showMessage, showToast } from "./notify.js";
+import { getLiveKlant, getMandjes } from './storageItems.js';
+import { Mandje, Artikel } from './classes.js';
+import { showMessage, showToast } from './notify.js';
 
 async function getParts(page, page_size) {
-    const url = `https://rebrickable.com/api/v3/lego/parts/?page=${page}&page_size=${page_size}`;
-    const response = await fetch(url, {
-        method: 'GET',
-        headers: {
-            Authorization: 'key bc4537b496eaab6056e0ce49fb54bc55',
-        },
-    });
-    return response.json();
+  const url = `https://rebrickable.com/api/v3/lego/parts/?page=${page}&page_size=${page_size}`;
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      Authorization: 'key bc4537b496eaab6056e0ce49fb54bc55',
+    },
+  });
+  return response.json();
 }
 
-export function buildPage (pageNum, pageSize) {
-    getParts(pageNum, pageSize)
-        .then((data) => {
-            const wraps = document.querySelectorAll('.part_wrap');
-            const navDiv = document.getElementById('pages_nav_div');
-            if (wraps) {
-                wraps.forEach((wrap) => {
-                    wrap.remove();
-                });
-            }
-            if (navDiv) {
-                navDiv.remove();
-            }
-            createPartsList(data);
-            pageNavListeners();
-            addCartListeners();
+export function buildPage(pageNum, pageSize) {
+  getParts(pageNum, pageSize)
+    .then((data) => {
+      const wraps = document.querySelectorAll('.part_wrap');
+      const navDiv = document.getElementById('pages_nav_div');
+      if (wraps) {
+        wraps.forEach((wrap) => {
+          wrap.remove();
         });
+      }
+      if (navDiv) {
+        navDiv.remove();
+      }
+      createPartsList(data);
+      pageNavListeners();
+      addCartListeners();
+    });
 }
 
 function createPartEl(part_num, name, img_url, part_url) {
@@ -97,7 +97,7 @@ function createPartEl(part_num, name, img_url, part_url) {
   addLink.classList.add('add-button');
   addLink.classList.add('uk-button-small');
   buyDiv.appendChild(addLink);
-  bottomDiv.appendChild(buyDiv)
+  bottomDiv.appendChild(buyDiv);
   bodyDiv.appendChild(nameEl);
   detailsDiv.appendChild(detailLink);
   bodyDiv.appendChild(detailsDiv);
@@ -114,61 +114,62 @@ function addCartListeners() {
     btn.addEventListener('click', ((event) => {
       event.preventDefault();
       if (live_klant) {
-          const badges = document.querySelectorAll('span.badge-count');
-          let  mandjes = getMandjes();
-          const part_num = event.target.dataset.part;
-          const { naam } = event.target.dataset;
-          const { prijs } = event.target.dataset;
-          const artikel = new Artikel(part_num, naam, prijs);
-          if (mandjes[live_klant.naam]) {
-              mandjes[live_klant.naam].artikelen.push(artikel);
-              localStorage.setItem('mandjes', JSON.stringify(mandjes));
-          } else {
-              let mandje = new Mandje(live_klant);
-              mandje.artikelen.push(artikel);
-              mandjes[live_klant.naam] = mandje;
-              localStorage.setItem('mandjes', JSON.stringify(mandjes));
-          }
-          badges.forEach((badge) => {
-              badge.innerText = mandjes[live_klant.naam].artikelen.length;
-          });
-          showToast('Artikel toegevoegd', artikel.naam + ' is toegevoegd aan je mandje', 'success');
+        const badges = document.querySelectorAll('span.badge-count');
+        const mandjes = getMandjes();
+        const part_num = event.target.dataset.part;
+        const { naam } = event.target.dataset;
+        const { prijs } = event.target.dataset;
+        const artikel = new Artikel(part_num, naam, prijs);
+        if (mandjes[live_klant.naam]) {
+          mandjes[live_klant.naam].artikelen.push(artikel);
+          localStorage.setItem('mandjes', JSON.stringify(mandjes));
+        } else {
+          const mandje = new Mandje(live_klant);
+          mandje.artikelen.push(artikel);
+          mandjes[live_klant.naam] = mandje;
+          localStorage.setItem('mandjes', JSON.stringify(mandjes));
+        }
+        badges.forEach((badge) => {
+          badge.innerText = mandjes[live_klant.naam].artikelen.length;
+        });
+        showToast('Artikel toegevoegd', `${artikel.naam} is toegevoegd aan je mandje`, 'success');
       } else {
-          showMessage('Niet ingelogd',
-              'Je moet ingelogd zijn om artikelen aan je mandje toe te kunnen voegen',
-              'warning'
-          );
+        showMessage(
+          'Niet ingelogd',
+          'Je moet ingelogd zijn om artikelen aan je mandje toe te kunnen voegen',
+          'warning',
+        );
       }
     }));
   });
 }
 
 export function getPage(pageUrl) {
-    let page = '1';
-    const hrefSplit = pageUrl.split('&');
-    let page_size = 20;
-    if (!hrefSplit[1] && page === '2') {
-        page = '1';
-    } else if (!hrefSplit[1]) {
-        page = '1';
-    } else {
-        page = hrefSplit[0].split('=')[1];
-        page_size = hrefSplit[1].split('=')[1];
-    }
-    sessionStorage.setItem('productPage', page);
-    return [page, page_size];
+  let page = '1';
+  const hrefSplit = pageUrl.split('&');
+  let page_size = 20;
+  if (!hrefSplit[1] && page === '2') {
+    page = '1';
+  } else if (!hrefSplit[1]) {
+    page = '1';
+  } else {
+    page = hrefSplit[0].split('=')[1];
+    page_size = hrefSplit[1].split('=')[1];
+  }
+  sessionStorage.setItem('productPage', page);
+  return [page, page_size];
 }
 
-export function pageNavListeners () {
-    const links = document.querySelectorAll('.pages-nav');
-    links.forEach((link) => {
-        link.addEventListener('click', ((event) => {
-            event.preventDefault();
-            const page = getPage(event.target.href);
-            window.scrollTo(0, 0);
-            buildPage(page[0], page[1]);
-        }));
-    });
+export function pageNavListeners() {
+  const links = document.querySelectorAll('.pages-nav');
+  links.forEach((link) => {
+    link.addEventListener('click', ((event) => {
+      event.preventDefault();
+      const page = getPage(event.target.href);
+      window.scrollTo(0, 0);
+      buildPage(page[0], page[1]);
+    }));
+  });
 }
 
 export function createPartsList(data) {
@@ -226,5 +227,4 @@ export function createPartsList(data) {
   pagesNav.appendChild(nextDiv);
 
   document.body.appendChild(pagesNav);
-
 }

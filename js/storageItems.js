@@ -17,15 +17,15 @@ export function getMandjes() {
 }
 
 export function getLiveKlant() {
-    const live_klant = JSON.parse(sessionStorage.getItem('live_klant'));
-    return live_klant;
+  const live_klant = JSON.parse(sessionStorage.getItem('live_klant'));
+  return live_klant;
 }
 
 export function getBerichten() {
-    let berichten = JSON.parse(localStorage.getItem('berichten'));
-    if (!berichten) {
-        berichten = [];
-        localStorage.setItem('berichten', JSON.stringify(berichten));
-    }
-    return berichten;
+  let berichten = JSON.parse(localStorage.getItem('berichten'));
+  if (!berichten) {
+    berichten = [];
+    localStorage.setItem('berichten', JSON.stringify(berichten));
+  }
+  return berichten;
 }
