@@ -4,7 +4,6 @@ const postcss = require('gulp-postcss');
 const autoprefixer = require('autoprefixer');
 const sourcemaps = require('gulp-sourcemaps');
 const eslintNew = require('gulp-eslint-new');
-const validator = require('gulp-html');
 const rename = require('gulp-rename');
 const cssnano = require('gulp-cssnano');
 const uglify = require('gulp-uglify');
@@ -67,12 +66,6 @@ function copyHtml () {
         .pipe(gulp.dest("./site"));
 }
 
-function html () {
-    return gulp.src("./site/*.html")
-        .pipe(validator())
-        .pipe(gulp.dest("./site"));
-}
-
 function copyDevFiles () {
     return gulp.src(["./package.json", "./gulpfile.js", "./src/README.md"])
         .pipe(gulp.dest("./site"));
@@ -80,7 +73,6 @@ function copyDevFiles () {
 
 
 exports.serve = serve;
-exports.html = html;
 exports.lintJs = lintJs;
 exports.lintStyles = lintStyles;
 exports.copyHtml = copyHtml;

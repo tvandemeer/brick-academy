@@ -13,25 +13,19 @@
 </head>
 <body>
 
-    <nav class="uk-navbar-container">
+    <nav class="uk-navbar-container uk-visible@s">
         <div class="uk-container">
             <div uk-navbar class="uk-height-max-small">
                 <div class="uk-navbar-left">
-                    <ul class="uk-navbar-nav">
-                        <li>
-                            <a href="index.html"><img src="img/brick.png" class="uk-width-1-3 uk-height-max-small" alt="Lego brick"></a>
-                        </li>
-                        <li class="link-index">
-                            <a href="index.html">Brick Academy</a>
-                        </li>
-                    </ul>
+                    <a href="index.html"><img src="img/brick.png" class="uk-width-1-3 uk-height-max-small" alt="Lego brick"></a>
+                    <a class="uk-navbar-item uk-logo" href="index.html" style="margin-left:-35%">brick academy</a>
                 </div>
                 <div class="uk-navbar-right">
-                    <ul class="uk-navbar-nav uk-visible@s">
+                    <ul class="uk-navbar-nav">
                         <li>
-                            <a href="#">
+                            <a href="">
                                 <input class="uk-input" type="text" placeholder="werkt (nog) niet">
-                                <button class="uk-button uk-button-default">Zoeken</button>
+                                <span uk-icon="icon: search"></span>
                             </a>
                         </li>
                         <li class='link-winkelmandje'>
@@ -41,10 +35,13 @@
                             <a href="contact.html">Contact</a>
                         </li>
                         <li>
-                            <a href="#"><span class="link-admin" uk-icon="icon: star"></span></a>
+                            <a href="">
+                                <span class="link-admin" uk-icon="icon: star"></span>
+                                <span class="link-user" uk-icon="icon: user"></span>
+                            </a>
                         </li>
                         <li>
-                            <a href="#"><span class="link-user" uk-icon="icon: user"></span><span uk-navbar-parent-icon></span></a>
+                            <a href=""><span uk-navbar-parent-icon></span></a>
                             <div class="uk-navbar-dropdown">
                                 <ul class="uk-nav uk-navbar-dropdown-nav">
                                     <li class="user-login"><a href="login.html">Log in</a></li>
@@ -57,41 +54,44 @@
                             <a href="https://github.com/tvandemeer/tvandemeer.github.io"><span uk-icon="icon: github" class="animate__animated animate__flash animate__slower animate__infinite"></span></a>
                         </li>
                     </ul>
-                    <a href="#" class="uk-navbar-toggle uk-hidden@s" uk-navbar-toggle-icon uk-toggle="target: #sidenav"></a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <div id="sidenav" uk-offcanvas="flip: true; mode: slide" class="uk-offcanvas">
-        <div class="uk-offcanvas-bar uk-box-shadow-large">
+    <nav class="uk-navbar-container uk-hidden@s" uk-navbar>
+        <div class="uk-navbar-left">
+            <a class="uk-navbar-toggle uk-navbar-toggle-animate" uk-navbar-toggle-icon uk-toggle="target: #offcanvas-menu" style="padding-left: 1em;" href=""></a>
+            <a href="index.html"><img src="img/brick.png" class="uk-width-1-3 uk-height-max-small" alt="Lego brick"></a>
+        </div>
+    </nav>
+
+    <div id="offcanvas-menu" uk-offcanvas="mode: push">
+        <div class="uk-offcanvas-bar">
             <button class="uk-offcanvas-close" type="button" uk-close></button>
+            <h3>Menu</h3>
             <ul class="uk-nav">
-                <li class="uk-margin-top">
-                    <a href="#">
+                <li>
+                    <a href="">
                         <input class="uk-input" type="text" placeholder="werkt (nog) niet">
                         <span uk-icon="icon: search"></span>
                     </a>
                 </li>
-                <li class="link-winkelmandje">
+                <li class='link-winkelmandje'>
                     <a href="winkelmandje.html">Winkelmandje&nbsp;<span uk-icon="icon: cart"></span><span class="uk-badge badge-count">0</span></a>
                 </li>
-                <li class="link-contact">
+                <li class='link-contact'>
                     <a href="contact.html">Contact</a>
                 </li>
                 <li>
-                    <a href="#"><span class="link-admin" uk-icon="icon: star"></span></a>
+                    <a href="">
+                        <span class="link-user" uk-icon="icon: user"></span>
+                        <span class="link-admin" uk-icon="icon: star"></span>
+                    </a>
                 </li>
-                <li>
-                    <a href="#"><span class="link-user" uk-icon="icon: user"></span><span uk-navbar-parent-icon></span></a>
-                    <div class="uk-navbar-dropdown">
-                        <ul class="uk-nav uk-navbar-dropdown-nav">
-                            <li class="user-login"><a href="login.html">Log in</a></li>
-                            <li class="user-logout uk-hidden"><a href="logout.html">Log uit</a></li>
-                            <li class="user-admin uk-hidden"><a href="admin.html">Admin dashboard</a></li>
-                        </ul>
-                    </div>
-                </li>
+                <li class="user-login"><a href="login.html">Log in</a></li>
+                <li class="user-logout uk-hidden"><a href="logout.html">Log uit</a></li>
+                <li class="user-admin uk-hidden"><a href="admin.html">Admin dashboard</a></li>
                 <li>
                     <a href="https://github.com/tvandemeer/tvandemeer.github.io"><span uk-icon="icon: github" class="animate__animated animate__flash animate__slower animate__infinite"></span></a>
                 </li>

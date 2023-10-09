@@ -1,15 +1,15 @@
-div.uk-navbar-left > ul.uk-navbar-nav {
-    gap: 0;
-    margin-left: -50px;
-}
+/*div.uk-navbar-left > ul.uk-navbar-nav {*/
+    /*gap: 0;*/
+    /*margin-left: -50px;*/
+/*}*/
 
-div.uk-navbar-left > ul.uk-navbar-nav > li:nth-child(2) {
-    margin-left: -40px;
-}
+/*div.uk-navbar-left > ul.uk-navbar-nav > li:nth-child(2) {*/
+    /*margin-left: -40px;*/
+/*}*/
 
-.uk-offcanvas-bar .uk-close {
-    right: 90%;
-}
+/*.uk-offcanvas-bar .uk-close {*/
+    /*right: 90%;*/
+/*}*/
 
 .price {
     font-family: 'Passion One', cursive;
@@ -40,9 +40,3 @@ div.uk-navbar-left > ul.uk-navbar-nav > li:nth-child(2) {
     padding: 15px;
     margin: 0;
 }
-
-.uk-navbar-dropdown {
-    background-color: whitesmoke;
-    border-radius: 8px;
-}
-
