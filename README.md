@@ -9,6 +9,9 @@ Gebruikt mogen worden: HTML, CSS en JavaScript.
 
 Later meer!<br>
 ![brickshop_classes](https://github.com/tvandemeer/tvandemeer.github.io/assets/570579/20181725-ec8a-43f8-b0cb-e09c7e06cba4)
+![screen400w](https://github.com/tvandemeer/tvandemeer.github.io/assets/570579/0f648d97-76ea-46b1-bc90-09bd9ef4d8dc)
+![screen880w](https://github.com/tvandemeer/tvandemeer.github.io/assets/570579/739abcc4-489c-481a-b37b-e2e8e80a9f11)
+![screen1400w](https://github.com/tvandemeer/tvandemeer.github.io/assets/570579/306a250a-7599-4295-a1b6-4443ae55b87a)
 
 
 ### De eisen waaraan het project moet voldoen
