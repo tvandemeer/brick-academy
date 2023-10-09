@@ -8,6 +8,7 @@ Gebruikt mogen worden: HTML, CSS en JavaScript.
 ### Over de structuur
 
 Later meer!<br>
+![brickshop_classes](https://github.com/tvandemeer/tvandemeer.github.io/assets/570579/20181725-ec8a-43f8-b0cb-e09c7e06cba4)
 
 
 ### De eisen waaraan het project moet voldoen
