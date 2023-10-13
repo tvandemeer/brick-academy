@@ -2,6 +2,9 @@
 
 ### Over dit project
 
+- [link naar website](https://tvandemeer.github.io)<br>
+- [link naar repository](https://github.com/tvandemeer/tvandemeer.github.io)
+
 Het doel is het bouwen van een webshop, gebruik makend van front-end development technieken.<br>
 Gebruikt mogen worden: HTML, CSS en JavaScript.
 
