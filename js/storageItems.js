@@ -29,3 +29,12 @@ export function getBerichten() {
   }
   return berichten;
 }
+
+export function getCustomArtikelen() {
+  let customArtikelen = JSON.parse(localStorage.getItem('customArtikelen'));
+  if (!customArtikelen) {
+    customArtikelen = [];
+    localStorage.setItem('customArtikelen', JSON.stringify(customArtikelen));
+  }
+  return customArtikelen;
+}

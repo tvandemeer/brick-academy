@@ -143,7 +143,53 @@
             </div>
         </div>
     </div>
-
+    <hr>
+    <div class="uk-container uk-margin-top">
+        <div uk-grid>
+            <div class="uk-width-1-4@l">
+                <form>
+                    <fieldset class="uk-fieldset uk-form-stacked">
+                        <legend class="uk-legend">Voeg een artikel toe</legend>
+                        <div class="uk-margin uk-width-1-1">
+                            <label for="custom-id" class="uk-form-label">ID</label>
+                            <div class="uk-form-controls">
+                                <input id="custom-id" class="uk-input" type="text" placeholder="ID">
+                            </div>
+                        </div>
+                        <div class="uk-margin uk-width-1-1">
+                            <label for="custom-naam" class="uk-form-label">Naam</label>
+                            <div class="uk-form-controls">
+                                <input id="custom-naam" class="uk-input" type="text" placeholder="Naam">
+                            </div>
+                        </div>
+                        <div class="uk-margin uk-width-1-1">
+                            <label for="custom-prijs" class="uk-form-label">Prijs (€)</label>
+                            <div class="uk-form-controls">
+                                <input id="custom-prijs" class="uk-input" type="text" placeholder="Prijs">
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+                <button id="add-custom-btn" class="uk-button uk-button-primary" type="button">Artikel toevoegen</button>
+            </div>
+            <div class="uk-width-3-4@l">
+                <legend class="uk-legend">Toegevoegde artikelen</legend>
+                <table class="uk-table uk-table-striped" id="custom-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Naam</th>
+                            <th>Prijs</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="custom-table-body">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
     <script src='js/swal2/sweetalert2.all.min.js'></script>
     <script type="module" src="js/admin.js"></script>
 

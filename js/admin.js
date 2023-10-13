@@ -1,7 +1,7 @@
 import { updateNavbar } from './navbar.js';
 import { getLiveKlant } from './storageItems.js';
 import { showMessage } from './notify.js';
-import { populateSelect } from './adminUi.js';
+import { populateSelect, populateCustom, createCustomArtikel } from './adminUi.js';
 
 updateNavbar();
 
@@ -18,4 +18,6 @@ if (!live_klant) {
   }
 
   populateSelect();
+  document.getElementById('add-custom-btn').addEventListener('click', createCustomArtikel);
+  populateCustom();
 }

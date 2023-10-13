@@ -1,8 +1,11 @@
-import { getKlanten, getMandjes, getLiveKlant } from './storageItems.js';
+import {
+  getKlanten, getMandjes, getLiveKlant, getCustomArtikelen,
+} from './storageItems.js';
 import {
   confirmDeleteKlant, confirmDeleteMandje, showMessage, showToast,
 } from './notify.js';
 import { updateNavbar } from './navbar.js';
+import { Artikel } from './classes.js';
 
 const { Swal } = window;
 
@@ -85,6 +88,28 @@ function deleteArtikel(event) {
   }
 }
 
+export function createCustomArtikel(event) {
+  const customArtikelen = getCustomArtikelen();
+  const artikelID = document.getElementById('custom-id').value;
+  const artikelNaam = document.getElementById('custom-naam').value;
+  const artikelPrijs = document.getElementById('custom-prijs').value;
+  const artikel = new Artikel(artikelID, artikelNaam, artikelPrijs);
+  customArtikelen.push(artikel);
+  localStorage.setItem('customArtikelen', JSON.stringify(customArtikelen));
+  document.getElementById('custom-id').value = '';
+  document.getElementById('custom-naam').value = '';
+  document.getElementById('custom-prijs').value = '';
+  populateCustom();
+}
+
+function deleteCustomArtikel(event) {
+  const index = parseInt(event.target.dataset.index);
+  const customArtikelen = getCustomArtikelen();
+  const deleted = customArtikelen.splice(index, 1);
+  localStorage.setItem('customArtikelen', JSON.stringify(customArtikelen));
+  populateCustom();
+}
+
 function createRow(artikel, i, klant) {
   const createResults = document.getElementById('results-table-body');
   const tableRow = document.createElement('tr');
@@ -101,7 +126,7 @@ function createRow(artikel, i, klant) {
   deleteBtn.type = 'button';
   deleteBtn.setAttribute('data-index', i);
   deleteBtn.setAttribute('data-klant', klant);
-  deleteBtn.innerText = 'X';
+  deleteBtn.innerHTML = '&times;';
   deleteBtn.addEventListener('click', deleteArtikel);
   idCel.innerText = artikel.id;
   naamCel.innerText = artikel.naam;
@@ -215,4 +240,42 @@ export function populateSelect() {
     .addEventListener('click', deleteKlant);
   document.getElementById('delete-mandje-btn')
     .addEventListener('click', deleteMandje);
+}
+
+export function populateCustom() {
+  const customTableBody = document.getElementById('custom-table-body');
+  const rows = document.querySelectorAll('#custom-table-body tr');
+  if (rows.length) {
+    rows.forEach((row) => {
+      row.remove();
+    });
+  }
+  const customArtikelen = getCustomArtikelen();
+  if (customArtikelen.length) {
+    for (let i = 0; i < customArtikelen.length; i++) {
+      const bodyRow = document.createElement('tr');
+      const idCel = document.createElement('td');
+      const naamCel = document.createElement('td');
+      const prijsCel = document.createElement('td');
+      const buttonCel = document.createElement('td');
+      const deleteBtn = document.createElement('button');
+      buttonCel.classList.add('uk-text-right');
+      deleteBtn.classList.add('uk-button');
+      deleteBtn.classList.add('uk-button-danger');
+      deleteBtn.classList.add('uk-button-small');
+      deleteBtn.type = 'button';
+      deleteBtn.innerHTML = '&times;';
+      deleteBtn.setAttribute('data-index', i);
+      deleteBtn.addEventListener('click', deleteCustomArtikel);
+      buttonCel.appendChild(deleteBtn);
+      idCel.innerText = customArtikelen[i].id;
+      naamCel.innerText = customArtikelen[i].naam;
+      prijsCel.innerText = `€${customArtikelen[i].prijs}`;
+      bodyRow.appendChild(idCel);
+      bodyRow.appendChild(naamCel);
+      bodyRow.appendChild(prijsCel);
+      bodyRow.appendChild(buttonCel);
+      customTableBody.appendChild(bodyRow);
+    }
+  }
 }
