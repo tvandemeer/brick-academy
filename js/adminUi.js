@@ -126,11 +126,26 @@ function editCustomArtikel(event) {
             localStorage.setItem('editableCustomArtikelen', JSON.stringify(editableCustomArtikelen));
         }
     });
-    // edit logic
+    window.location.reload();
 }
 
 function resetCustomArtikel(event) {
-    // reset logic
+    const customArtikelen = getCustomArtikelen();
+    let editableCustomArtikelen = getEditableCustomArtikelen();
+    const artikel_id = event.target.dataset.artikel;
+    let artIndex;
+    for (let i = 0; i < editableCustomArtikelen.length; i++) {
+        if (editableCustomArtikelen[i]['id'] === artikel_id) {
+            artIndex = i;
+        }
+    }
+    for (let i = 0; i < customArtikelen.length; i++) {
+        if (customArtikelen[i]['id'] === artikel_id) {
+            editableCustomArtikelen[artIndex] = customArtikelen[i];
+            localStorage.setItem('editableCustomArtikelen', JSON.stringify(editableCustomArtikelen));
+        }
+    }
+    populateCustom();
 }
 
 function createRow(artikel, i, klant) {
@@ -283,8 +298,10 @@ export function populateCustom() {
             const naamCel = document.createElement('td');
             const prijsCel = document.createElement('td');
             const editCel = document.createElement('td');
+            const resetCel = document.createElement('td');
             const buttonCel = document.createElement('td');
             const editBtn = document.createElement('button');
+            const resetBtn = document.createElement('button');
             const deleteBtn = document.createElement('button');
             const naamEdit = document.createElement('input');
             const prijsEdit = document.createElement('input');
@@ -305,6 +322,13 @@ export function populateCustom() {
             editBtn.innerText = 'Save';
             editBtn.setAttribute('data-artikel', customArtikelen[i].id);
             editBtn.addEventListener('click', editCustomArtikel);
+            resetBtn.classList.add('uk-button');
+            resetBtn.classList.add('uk-button-primary');
+            resetBtn.classList.add('uk-button-small');
+            resetBtn.type = 'button';
+            resetBtn.innerText = 'Reset';
+            resetBtn.setAttribute('data-artikel', customArtikelen[i].id);
+            resetBtn.addEventListener('click', resetCustomArtikel);
             deleteBtn.classList.add('uk-button');
             deleteBtn.classList.add('uk-button-danger');
             deleteBtn.classList.add('uk-button-small');
@@ -313,12 +337,14 @@ export function populateCustom() {
             deleteBtn.setAttribute('data-index', i);
             deleteBtn.addEventListener('click', deleteCustomArtikel);
             editCel.appendChild(editBtn);
+            resetCel.appendChild(resetBtn);
             buttonCel.appendChild(deleteBtn);
             idCel.innerText = customArtikelen[i].id;
             bodyRow.appendChild(idCel);
             bodyRow.appendChild(naamCel);
             bodyRow.appendChild(prijsCel);
             bodyRow.appendChild(editCel);
+            bodyRow.appendChild(resetCel);
             bodyRow.appendChild(buttonCel);
             customTableBody.appendChild(bodyRow);
         }
