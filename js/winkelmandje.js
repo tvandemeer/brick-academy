@@ -1,5 +1,5 @@
-import { updateNavbar } from './navbar.js';
-import { populateResults } from './klantUi.js';
+import { updateNavbar } from "./navbar.js";
+import { populateResults } from "./klantUi.js";
 
 updateNavbar();
 
