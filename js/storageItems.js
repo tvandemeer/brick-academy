@@ -38,3 +38,12 @@ export function getCustomArtikelen() {
     }
     return customArtikelen;
 }
+
+export function getEditableCustomArtikelen() {
+    let editableCustomArtikelen = JSON.parse(localStorage.getItem('editableCustomArtikelen'));
+    if (!editableCustomArtikelen) {
+        editableCustomArtikelen = [];
+        localStorage.setItem('editableCustomArtikelen', JSON.stringify(editableCustomArtikelen));
+    }
+    return editableCustomArtikelen;
+}

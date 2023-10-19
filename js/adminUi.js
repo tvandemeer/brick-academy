@@ -1,5 +1,5 @@
 const Swal = window.Swal;
-import { getKlanten, getMandjes, getLiveKlant, getCustomArtikelen } from "./storageItems.js";
+import { getKlanten, getMandjes, getLiveKlant, getCustomArtikelen, getEditableCustomArtikelen } from "./storageItems.js";
 import { confirmDeleteKlant, confirmDeleteMandje, showMessage, showToast } from "./notify.js";
 import { updateNavbar } from "./navbar.js";
 import { Artikel } from "./classes.js";
@@ -85,12 +85,17 @@ function deleteArtikel(event) {
 
 export function createCustomArtikel(event) {
     let customArtikelen = getCustomArtikelen();
+    let editableCustomArtikelen = getEditableCustomArtikelen();
     const artikelID = document.getElementById('custom-id').value;
     const artikelNaam = document.getElementById('custom-naam').value;
-    const artikelPrijs = document.getElementById('custom-prijs').value;
-    const artikel = new Artikel(artikelID, artikelNaam, artikelPrijs);
-    customArtikelen.push(artikel);
-    localStorage.setItem('customArtikelen', JSON.stringify(customArtikelen));
+    const artikelPrijs = parseFloat(document.getElementById('custom-prijs').value);
+    if (artikelID && artikelNaam && artikelPrijs) {
+        const artikel = new Artikel(artikelID, artikelNaam, artikelPrijs);
+        customArtikelen.push(artikel);
+        editableCustomArtikelen.push(artikel);
+        localStorage.setItem('customArtikelen', JSON.stringify(customArtikelen));
+        localStorage.setItem('editableCustomArtikelen', JSON.stringify(editableCustomArtikelen));
+    }
     document.getElementById('custom-id').value = '';
     document.getElementById('custom-naam').value = '';
     document.getElementById('custom-prijs').value = '';
@@ -100,9 +105,32 @@ export function createCustomArtikel(event) {
 function deleteCustomArtikel(event) {
     const index = parseInt(event.target.dataset.index);
     let customArtikelen = getCustomArtikelen();
+    let editableCustomArtikelen = getEditableCustomArtikelen();
     const deleted = customArtikelen.splice(index, 1);
+    const deleted2 = editableCustomArtikelen.splice(index, 1);
     localStorage.setItem('customArtikelen', JSON.stringify(customArtikelen));
+    localStorage.setItem('editableCustomArtikelen', JSON.stringify(editableCustomArtikelen));
     populateCustom();
+}
+
+function editCustomArtikel(event) {
+    let editableCustomArtikelen = getEditableCustomArtikelen();
+    const part_id = event.target.dataset.artikel;
+    const row = event.target.parentElement.parentElement;
+    const naam = row.querySelector('input.naam').value;
+    const prijs = parseFloat(row.querySelector('input.prijs').value);
+    editableCustomArtikelen.forEach((artikel) => {
+        if (artikel['id'] === part_id) {
+            artikel['naam'] = naam;
+            artikel['prijs'] = prijs;
+            localStorage.setItem('editableCustomArtikelen', JSON.stringify(editableCustomArtikelen));
+        }
+    });
+    // edit logic
+}
+
+function resetCustomArtikel(event) {
+    // reset logic
 }
 
 function createRow(artikel, i, klant) {
@@ -247,16 +275,36 @@ export function populateCustom() {
             row.remove();
         });
     }
-    const customArtikelen = getCustomArtikelen();
+    const customArtikelen = getEditableCustomArtikelen();
     if (customArtikelen.length) {
         for (let i = 0; i < customArtikelen.length; i++) {
             const bodyRow = document.createElement('tr');
             const idCel = document.createElement('td');
             const naamCel = document.createElement('td');
             const prijsCel = document.createElement('td');
+            const editCel = document.createElement('td');
             const buttonCel = document.createElement('td');
+            const editBtn = document.createElement('button');
             const deleteBtn = document.createElement('button');
-            buttonCel.classList.add('uk-text-right');
+            const naamEdit = document.createElement('input');
+            const prijsEdit = document.createElement('input');
+            naamEdit.type = "text";
+            naamEdit.name = "naam";
+            naamEdit.value = customArtikelen[i].naam;
+            naamEdit.classList.add('naam');
+            naamCel.appendChild(naamEdit);
+            prijsEdit.type = "text";
+            prijsEdit.name = "prijs";
+            prijsEdit.value = customArtikelen[i].prijs;
+            prijsEdit.classList.add('prijs');
+            prijsCel.appendChild(prijsEdit);
+            editBtn.classList.add('uk-button');
+            editBtn.classList.add('uk-button-primary');
+            editBtn.classList.add('uk-button-small');
+            editBtn.type = 'button';
+            editBtn.innerText = 'Save';
+            editBtn.setAttribute('data-artikel', customArtikelen[i].id);
+            editBtn.addEventListener('click', editCustomArtikel);
             deleteBtn.classList.add('uk-button');
             deleteBtn.classList.add('uk-button-danger');
             deleteBtn.classList.add('uk-button-small');
@@ -264,13 +312,13 @@ export function populateCustom() {
             deleteBtn.innerHTML = '&times;';
             deleteBtn.setAttribute('data-index', i);
             deleteBtn.addEventListener('click', deleteCustomArtikel);
+            editCel.appendChild(editBtn);
             buttonCel.appendChild(deleteBtn);
             idCel.innerText = customArtikelen[i].id;
-            naamCel.innerText = customArtikelen[i].naam;
-            prijsCel.innerText = '€' + customArtikelen[i].prijs;
             bodyRow.appendChild(idCel);
             bodyRow.appendChild(naamCel);
             bodyRow.appendChild(prijsCel);
+            bodyRow.appendChild(editCel);
             bodyRow.appendChild(buttonCel);
             customTableBody.appendChild(bodyRow);
         }

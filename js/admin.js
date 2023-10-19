@@ -21,4 +21,3 @@ if (!live_klant) {
     document.getElementById('add-custom-btn').addEventListener('click', createCustomArtikel);
     populateCustom();
 }
-
