@@ -1,4 +1,4 @@
-import { getLiveKlant, getMandjes } from "./storageItems.js";
+import { getLiveKlant, getMandjes, getEditableCustomArtikelen } from "./storageItems.js";
 import { Mandje, Artikel } from "./classes.js";
 import { showMessage, showToast } from "./notify.js";
 
@@ -172,6 +172,10 @@ export function pageNavListeners () {
 }
 
 export function createPartsList(data) {
+    const customParts = getEditableCustomArtikelen();
+    customParts.forEach((part) => {
+        createPartEl(part['id'], part['naam'], '', '#');
+    });
   data.results.forEach((item) => {
     createPartEl(item.part_num, item.name, item.part_img_url, item.part_url);
   });

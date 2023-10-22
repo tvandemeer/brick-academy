@@ -47,3 +47,12 @@ export function getEditableCustomArtikelen() {
     }
     return editableCustomArtikelen;
 }
+
+export function getBestellingen() {
+  let bestellingen = JSON.parse(localStorage.getItem('bestellingen'));
+  if (!bestellingen) {
+    bestellingen = [];
+    localStorage.setItem('bestellingen', JSON.stringify(bestellingen));
+  }
+  return bestellingen;
+}

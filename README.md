@@ -2,6 +2,9 @@
 
 ### Over dit project
 
+Uitleg: <strong>Het is een webshop!</strong><br>
+Lokaal draaien: Een webserver opstoken, apache, nginx, lighttpd, whatever you like,  en gaan.<br>
+
 - [link naar website](https://tvandemeer.github.io)<br>
 - [link naar repository](https://github.com/tvandemeer/tvandemeer.github.io)
 
